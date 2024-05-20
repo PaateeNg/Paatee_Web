@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import React from 'react'
 import { FaArrowRight } from "react-icons/fa";
+
 
 const GetStarted = () => {
   return (
@@ -10,9 +12,14 @@ const GetStarted = () => {
                 <span className='font-bold'>Get Started as a Vendor</span>
                 <span className='font-xs text-sm text-gray-500'>Seamless Convenience: Swift, Free Delivery to Your Door!</span>
             </div>
-                <div className='bg-gray-200 rounded-xl w-[40px] h-[40px] flex items-center justify-center'>
-                <FaArrowRight />
-                </div>
+               <Link href="/get-started/vendor">
+               
+                  <div className='bg-gray-200 rounded-xl w-[40px] h-[40px] flex items-center justify-center hover:cursor-pointer'>
+                  <FaArrowRight />
+                  </div>
+                
+               </Link> 
+                
         </div>
     </>
   )

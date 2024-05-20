@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
+import Link from "next/link";
 
 export default function HomeBanner() {
   return (
@@ -19,7 +20,12 @@ export default function HomeBanner() {
         <span className="block font-{500} text-[24px] text-white">
           Venues, Vendors and planners all in one place
         </span>
-        <PrimaryBtn center={true} title="Get Started" />
+        <Link href="/get-started" >
+
+          <PrimaryBtn center={true} title="Get Started" />
+        </Link>
+          
+        
       </div>
     </div>
   );
