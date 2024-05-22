@@ -4,11 +4,13 @@ import cake1 from "../../../public/assets/img/cake1.png";
 import cart from "../../../public/assets/img/shopping-cart.png";
 import { data } from "../data";
 import ProductCardMain from "./ProductCardMain";
+import Link from "next/link";
 
 const ProductCard = () => {
 	return (
-		<>
-			<div className="flex flex-col md:flex-row">
+		<>	
+		<Link href='/product/product-detail'>
+			<div className="flex flex-col md:flex-row hover:cursor-pointer">
 				{data.map((d) => (
 					<ProductCardMain
 						key={d.id}
@@ -20,6 +22,7 @@ const ProductCard = () => {
 					/>
 				))}
 			</div>
+		</Link>
 		</>
 	);
 };
