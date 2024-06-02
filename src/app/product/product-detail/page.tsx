@@ -78,6 +78,15 @@ const page = () => {
         </div>
 
       </div>
+
+      {/* right */}
+      <div className="w-[351px] h-[392px] bg-white">
+          <span>Delivery Details</span>
+          <span>The states that would be visible in the input field below are areas that this vendor can deliver items to.</span>
+          <span>Select your location</span>
+          <input type="text" placeholder=" Select your state"/>
+          <input type="text" placeholder="Enter delivery address"/>
+      </div>
 		</>
 	);
 };
