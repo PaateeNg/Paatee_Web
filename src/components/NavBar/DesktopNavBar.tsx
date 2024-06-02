@@ -43,7 +43,7 @@ export default function NavBar() {
     }
   ];
   return (
-    <nav className="h-[100px] bg-transparent md:flex md:align-middle md:p-[32px]">
+    <nav className="h-[90px] bg-transparent md:flex md:align-middle md:p-[32px]">
       {/* start --> logo */}
       <div className="md:ps-[32px] relative" style={{ top: "-5px" }}>
         <Image
@@ -51,7 +51,7 @@ export default function NavBar() {
           alt=""
           width={179}
           height={49}
-          style={{ width: "auto", height: "auto" }}
+          style={{ width: "auto", height: "auto", position: "relative", top: "-5px" }}
         />
       </div>
 
@@ -93,7 +93,7 @@ export default function NavBar() {
             <Dropdown
               
               label="Join Us"
-              style={{ backgroundColor: "transparent", color: "black" }}
+              style={{ backgroundColor: "transparent", color: "black", position: "relative", top: "-8.5px" }}
             >
               <Dropdown.Item>Dashboard</Dropdown.Item>
             </Dropdown>

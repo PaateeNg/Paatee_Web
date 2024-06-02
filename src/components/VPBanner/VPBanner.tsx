@@ -1,16 +1,14 @@
-import { url } from "inspector";
 import Image from "next/image";
 import React, { useState } from "react";
 
-const VPBanner = () => {
+const VPBanner = ({}) => {
     const vendor = true;
-    
 
 	return (
 		<>
 			<div className="w-full h-[200px] relative">
 				<div className="w-full h-full items-center md:ps-[52px] flex px-[10px] z-20 absolute">
-					<span className="text-yellow-300 text-[34px]">{vendor? "Vendors" : "Party Planners"}</span>
+					<span className="text-white font-bold text-[34px]">{vendor? "Vendors" : "Party Planners"}</span>
 				</div>
 				<Image
 					src="/assets/img/planner-banner.png"

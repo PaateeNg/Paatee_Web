@@ -1,14 +1,14 @@
 import Image from "next/image";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
 
-export default function() {
+export default function Footer() {
   return (
     <footer className="relative flex flex-col">
       {/* first road of footer  */}
-      <div className="md:flex md:p-[110px] border-y-2 mt-5">
+      <div className="md:flex md:p-[110px] border-y-2 pt-5">
         <span className="w-1/2">
           <Image
-            src="/assets/img/logo3.png"
+            src="/assets/img/Logo3.png"
             alt=""
             width={123.95}
             height={41.7}

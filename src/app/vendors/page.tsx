@@ -1,5 +1,5 @@
 import NavBar from '@/components/NavBar/DesktopNavBar'
-import PlannerCard from '@/components/PlannerCard/PlannerCard'
+import PlannerCard from '@/components/PVCard/PVCard'
 import SearchBar from '@/components/SearchBar/SearchBar'
 import VPBanner from '@/components/VPBanner/VPBanner'
 import React from 'react'
