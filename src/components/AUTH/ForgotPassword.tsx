@@ -4,7 +4,7 @@ const ForgotPassword = () => {
   return (
     <>
         <div>
-            <div className='w-[487px] h-[358px] border m-5 p-5 rounded-2xl border-red-700 bg-[#ffecec] flex flex-col gap-3'>
+            <div className='w-[387px] min-h-[258px] border m-5 p-5 rounded-2xl border-red-700 bg-[#ffecec] flex flex-col gap-3'>
                 <span className='font-bold text-xl'>Forgot Password </span>
                 <span className='text-gray-500'>Enter your email address in the field, and we would send you a recovery email to reset your password.</span>
                 <span className='mt-7'>Email</span>

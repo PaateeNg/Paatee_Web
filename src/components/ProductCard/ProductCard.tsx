@@ -43,3 +43,4 @@ const ProductCard: React.FC<{ img?: StaticImageData, category?: string, category
 }
 
 export default ProductCard
+

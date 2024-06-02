@@ -6,7 +6,7 @@ const PasswordResetSucc = () => {
   return (
     <>
         <div>
-            <div className='w-[392px]  border m-5 p-5 rounded-2xl border-red-700 bg-[#ffecec] flex flex-col gap-5 text-center'>
+            <div className='w-[292px]  border m-5 p-5 rounded-2xl border-red-700 bg-[#ffecec] flex flex-col gap-5 text-center'>
               <Image src={'/assets/img/tick.png'} height={50} width={50} alt='tick' className='m-auto flex'/>
                 <span className='font-bold text-xl'>Password Reset Successful </span>
                 <span className='text-gray-500'>You can now log into your account with your new password</span>
