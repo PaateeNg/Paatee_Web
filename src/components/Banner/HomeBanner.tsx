@@ -4,8 +4,9 @@ import PrimaryBtn from "../Buttons/PrimaryBtn";
 import Link from "next/link";
 
 export default function HomeBanner() {
+  // md:h-[480px] lg:h-[555px]
   return (
-    <div className="relative object-contain w-full md:h-[480px] lg:h-[555px] overflow-hidden">
+    <div className="relative object-contain w-full h-[calc(100vh-90px)]  overflow-hidden">
       <Image
         src="/assets/img/homebanner.jpeg"
         alt=""
