@@ -1,21 +1,19 @@
-import React from 'react'
-import planner1 from '../../../public/assets/img/planner1.png'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 
-interface PVCardProps {
-    imgSrc?: StaticImageData,
-    email?: string,
-    firstName?: string,
-    LastName?: string,
+// interface PVCardProps {
+//     imgSrc?: StaticImageData,
+//     link?: string,
+//     cat1?: string,
+//     cat2?: string,
+//     cat3?: string,
+//     cat4?: string
+// }
 
-}
-
-const PVCard: React.FC<PVCardProps> = ({imgSrc = planner1, }) => {
+const VendorCard = () => {
   return (
     <>
         <div className=' w-[454px] m-3 shadow-md overflow-hidden' style={{borderRadius: "20px"}}>
-            <Image src={imgSrc} height={163} width={454} alt="" />
-            <div className='p-5'>
+            <Image src='planner1.png' height={163} width={454} alt="" />
                 <div className='mt-5 mb-3'>
                     <div>
                         <span className='font-bold '>Elevant Events by Sarah</span>
@@ -26,9 +24,8 @@ const PVCard: React.FC<PVCardProps> = ({imgSrc = planner1, }) => {
                     </div>
                 </div>
             </div>
-        </div>
     </>
   )
 }
 
-export default PVCard
+export default VendorCard

@@ -1,18 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '~flowbite/dist/flowbite.min.css';
-
-@font-face {
-  font-family: "DM Sans";
-  src: url("/assets/fonts/DM_Sans/static/DMSans-Regular.ttf") format("truetype"), url("/assets/fonts/DM_Sans/static/DMSans-Bold.ttf") format("truetype") weight(bold); 
-}
 
 :root {
   --background-color: "#fff";
 }
 *{
-  font-family: 'DM Sans', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -20,6 +13,5 @@
 
 body {
   background-color: var(--background-color);
-  font-family: 'DM Sans', sans-serif;
 }
 
