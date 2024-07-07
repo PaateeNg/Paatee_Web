@@ -1,13 +1,6 @@
 
 "use client"
-import NavBar from '@/components/NavBar/DesktopNavBar'
 import VendorProfileMenu from '@/components/vendorProfileMenu/vendorProfileMenu'
-
-
-
-
-
-
 
 const Vendorprofile = () => {
   

@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "flowbite": "^2.3.0",
-    "flowbite-react": "^0.7.5",
+    "@apollo/client": "^3.10.8",
+    "graphql": "^16.9.0",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
