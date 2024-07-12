@@ -1,6 +1,6 @@
 import React from 'react'
 import planner1 from '../../../public/assets/img/planner1.png'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 
 interface Vendors {
     email: string;

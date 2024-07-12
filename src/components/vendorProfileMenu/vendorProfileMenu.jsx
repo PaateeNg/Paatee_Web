@@ -1,24 +1,13 @@
 "use client"
 
-import Details from '@/components/vendorProfileMenu/(menu)/Details'
-import Products from '@/components/vendorProfileMenu/(menu)/Products'
-import Orders from '@/components/vendorProfileMenu/(menu)/Orders'
-import Bookings from '@/components/vendorProfileMenu/(menu)/Bookings'
-import Transactions from '@/components/vendorProfileMenu/(menu)/Transactions'
+import { menuItems } from './(menu)/menuObj/menu'
+import Button from '@/components/vendorProfileMenu/button/Button'
 import { useState } from 'react'
 
 
-const menuItems = [
-    {id: 'menu1', label: 'Details', content: <Details/>},
-    {id: 'menu2', label: 'Product', content: <Products/>},
-    {id: 'menu3', label: 'Orders', content: <Orders/>},
-    {id: 'menu4', label: 'Bookings', content: <Bookings/>},
-    {id: 'menu5', label: 'Transactions', content: <Transactions/>}
-  ]
 
 
-
-const VendorProfileMenu = () => {
+const VendorProfileMenu = ({setShowBackgroundComponent}) => {
     const [activeMenu, setActiveMenu] = useState(menuItems[0].id)
 
     const renderedComponent = () => {
@@ -39,7 +28,7 @@ const VendorProfileMenu = () => {
                     </div>
                 ))}
             </div>
-            <button className='bg-red-500 text-white px-5 rounded-3xl mt-1'>Edit Profile</button>
+            <Button activeMenu={activeMenu} setShowBackgroundComponent={setShowBackgroundComponent} />
         </div>
         {/* Outlet */}
         <div className='flex gap-5  pt-4 px-5 '>

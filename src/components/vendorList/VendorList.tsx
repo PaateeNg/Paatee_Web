@@ -10,7 +10,7 @@ const VendorList = () => {
 
      //come to change to vendors later//for now the array is empty no mock data
     const vendors = data?.getAllUser || [];
-    console.log(vendors)
+    // console.log(vendors)
 
     return (
         <>
