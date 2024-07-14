@@ -9,3 +9,14 @@ export const GET_VENDORS = gql`
         }
     }
 `;
+
+//defining typescript for the vendors 
+export interface Vendor {
+    email: string;
+    firstName: string;
+    lastName: string;
+}
+//we are merging our query for typescript 
+export interface GetVendorData {
+    getAllUser : Vendor[]
+}

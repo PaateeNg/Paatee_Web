@@ -1,27 +1,26 @@
 import React from 'react'
 import planner1 from '../../../public/assets/img/planner1.png'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 
-interface PVCardProps {
-    imgSrc?: StaticImageData,
-    email?: string,
-    firstName?: string,
-    LastName?: string,
+interface Vendors {
+    email: string;
+    firstName: string;
+    lastName: string;
 
 }
 
-const PVCard: React.FC<PVCardProps> = ({imgSrc = planner1, }) => {
+const PVCard: React.FC<Vendors> = ({ email, firstName, lastName })=> {
   return (
     <>
         <div className=' w-[454px] m-3 shadow-md overflow-hidden' style={{borderRadius: "20px"}}>
-            <Image src={imgSrc} height={163} width={454} alt="" />
+            <Image src={planner1} height={163} width={454} alt="" />
             <div className='p-5'>
                 <div className='mt-5 mb-3'>
                     <div>
-                        <span className='font-bold '>Elevant Events by Sarah</span>
+                        <span className='font-bold '>{firstName}</span>
                         <div className='text-gray-500'>
-                            <span>5k reviews</span>
-                            <span className='ml-4'>Free to be booked</span>
+                            <span>{email}</span>
+                            <span className='ml-4'>{lastName}</span>
                         </div>
                     </div>
                 </div>
