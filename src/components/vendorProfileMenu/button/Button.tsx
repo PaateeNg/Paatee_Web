@@ -11,7 +11,7 @@ type Menu = {
 
 
 
-const Button = ({activeMenu, setShowBackgroundComponent} : Menu )=> {
+const Button = ({activeMenu, setShowBackgroundComponent} : Menu ) => {
 
   const handleClick = () => {
     if(activeMenu === "menu1"){
@@ -20,7 +20,7 @@ const Button = ({activeMenu, setShowBackgroundComponent} : Menu )=> {
     if(activeMenu === "menu2"){
       setShowBackgroundComponent(true)
     }
-    if(activeMenu === "menu3"){
+    if(activeMenu === "menu3"){ 
       console.log('Orders')
     }
     if(activeMenu === "menu4"){

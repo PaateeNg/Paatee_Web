@@ -1,13 +1,21 @@
 'use client'
 import { vendorProduct } from '@/components/vendorProfileMenu/mock data/Data'
 import { useState } from 'react'
+import { CiEdit } from "react-icons/ci";
 //Styles in global css
 
 const Products = () => {
-    const [editProductID, setEditProductID] = useState<number | null>(null);
+    const [click, setClick] = useState<number | null>(null);
+    const [showEdit, setShowEdit] = useState(false)
 
-    const onEdit = (productID: number) => {
-        setEditProductID(prevID => (prevID === productID ? null : productID));
+    const handleClick = (ProductID: number) => {
+        if (click === ProductID) {
+            setClick(null);
+            setShowEdit(false);
+        } else {
+            setClick(ProductID);
+            setShowEdit(true);
+        }
     }
 
     return (
@@ -28,17 +36,22 @@ const Products = () => {
                 {vendorProduct.map(product => (
                     <tr 
                         key={product.ProductID} 
-                        className={`${editProductID === product.ProductID ? 'bg-red-300' : ''}`} 
-                        onClick={() => onEdit(product.ProductID)}
+                        className={`${click === product.ProductID ? 'bg-red-300' : ''} cursor-pointer`} 
+                        onClick={() => handleClick(product.ProductID)}
                     >
                         <td>{product.ProductID}</td>
                         <td>{product.ProductName}</td>
                         <td>{product.Category}</td>
-                        <td>{product.Description}</td> {/* Fixed typo: Descriptio to Description */}
+                        <td>{product.Description}</td>
                         <td>{product.Price}</td>
                         <td>{product.StockQty}</td>
                         <td>{product.Rating}</td>
                         <td>{product.DateAdded}</td>
+                        <td>
+                            {click === product.ProductID && showEdit && (
+                                <CiEdit className="text-2xl text-red-800" />
+                            )}
+                        </td>
                     </tr>
                 ))}
             </tbody>
