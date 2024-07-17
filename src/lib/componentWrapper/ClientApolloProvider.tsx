@@ -12,3 +12,4 @@ const ClientApolloProvider = ({children} : {children: React.ReactNode}) => {
 }
 
 export default ClientApolloProvider
+
