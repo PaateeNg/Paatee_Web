@@ -24,16 +24,16 @@ export default function NavBar() {
   
 
   return (
-    <nav className="h-[90px] flex items-center justify-between px-12 ">
+    <nav className="h-[90px] flex items-center justify-between px-12 bg-white">
       {/* start --> logo */}
-      <div className=" relative h-20 w-48">
+      <Link href={'/'} className=" relative h-20 w-48">
         <Image
           src="/assets/img/logo.png"
           alt="Logo"
           fill
           className="object-contain"
         />
-      </div>
+      </Link>
 
       {/* middle */}
       <div className="flex flex-1 justify-center gap-12 text-lg ">
@@ -51,7 +51,7 @@ export default function NavBar() {
               {
                 click === menu.id && dropDown &&
               <div className='absolute top-10 left-0.5 flex flex-col bg-white border cursor-pointer'>
-                {menu.dropMenu?.map(menu => <Link className="p-2" href='/'>{menu.menu}</Link>)}
+                {menu.dropMenu?.map(menu => <Link key={menu.menu} className="p-2" href='/'>{menu.menu}</Link>)}
               </div>
               }
             </Link>

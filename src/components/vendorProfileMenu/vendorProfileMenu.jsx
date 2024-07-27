@@ -18,7 +18,7 @@ const VendorProfileMenu = ({setShowBackgroundComponent}) => {
     return <div className='flex flex-col border border-gray-200 sshadow-lg rounded-xl'>
         {/* Menu */}
         <div className='flex justify-between'>
-            <div className='flex borde r'>
+            <div className='flex border'>
                 {menuItems.map(menu => (
                     <div key={menu.id}
                     onClick={() => setActiveMenu(menu.id)}
