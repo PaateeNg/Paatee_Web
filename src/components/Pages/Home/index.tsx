@@ -7,6 +7,8 @@ import PlannerCards from "./PlannerCards";
 import Products from "./Products";
 import Testimonials from "./Testimonials";
 import VendorCards from "./VendorCards";
+import TopPlanners from "./TopPlanners";
+import TopVendors from "./TopVendors";
 
 
 export default function HomePage() {
@@ -17,8 +19,8 @@ export default function HomePage() {
 		<MiniBoxes/>
 		<Products/>
 		<CategoryCards/>
-		<PlannerCards/>
-		<VendorCards/>
+		<TopPlanners/>
+		<TopVendors/>
 		<Testimonials/>
 		<Offer/>
 	</div>

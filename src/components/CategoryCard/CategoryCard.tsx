@@ -7,11 +7,11 @@ const CategoryCard: React.FC<{ img?: StaticImageData; title?: string }> = ({
   img = "/assets/img/partyItemsImg.png"
 }) => {
   return (
-    <div className="relative flex flex-col align-middle md:w-[480px] h-[470px]">
+    <div className="relative flex flex-col justify-end items-center md:w-[480px] h-[470px]">
       <Image src={img} alt="" style={{"width": "auto", "height": "470px", "objectFit": "cover" }}/>
-      <div className="absolute flex flex-col w-full h-full">
-        <div className="flex flex-grow items-center justify-center">
-          <span className="text-white text-[32px] font-[700]">
+      <div className="absolute  flex flex-col justify-between  w-[80%] h-[60%]">
+        <div className="flex  items-center justify-center">
+          <span className="text-white text-3xl font-medium">
             {title}
           </span>
         </div>

@@ -11,7 +11,7 @@ export const GET_VENDORS = gql`
 `;
 
 //defining typescript for the vendors 
-export interface Vendor {
+export type Vendor = {
     email: string;
     firstName: string;
     lastName: string;

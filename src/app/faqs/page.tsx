@@ -1,8 +1,8 @@
 import React from 'react'
-import WelcomeUser from '@/components/welcomeUser/WecomeUser'
+
 const page = () => {
   return (
-    <WelcomeUser/>
+    <div>FAQs Page</div>
   )
 }
 

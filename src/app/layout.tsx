@@ -27,6 +27,7 @@ export default function RootLayout({
         <ClientApolloProvider>
           <NavBar />
           {children}
+          
           <Footer />
         </ClientApolloProvider>
         

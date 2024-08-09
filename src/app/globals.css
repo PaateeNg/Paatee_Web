@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background-color: "#fff";
-}
+
 *{
   margin: 0;
   padding: 0;
@@ -12,7 +10,7 @@
 }
 
 body {
-  background-color: var(--background-color);
+  background-color: #f3f4f6;
 }
 
 /* product table */
@@ -29,9 +27,18 @@ td, th {
   border: none;
 }
 
-/* BackgoundComponent */
-.background{
-  background-color: rgba(0, 0, 0, 0.507);
+/* Inout container */
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+input{
+  padding: 10px;
+  width: 89%;
 }
 
 
