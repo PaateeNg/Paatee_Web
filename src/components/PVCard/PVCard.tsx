@@ -1,15 +1,9 @@
 import React from 'react'
 import planner1 from '../../../public/assets/img/planner1.png'
 import Image from 'next/image'
+import {Vendor} from "@/lib/queries/GET_VENDORS"
 
-interface Vendors {
-    email: string;
-    firstName: string;
-    lastName: string;
-
-}
-
-const PVCard: React.FC<Vendors> = ({ email, firstName, lastName })=> {
+const PVCard = ({ email, firstName, lastName } : Vendor)=> {
   return (
     <>
         <div className=' w-[454px] m-3 shadow-md overflow-hidden' style={{borderRadius: "20px"}}>

@@ -3,7 +3,7 @@ import PrimaryBtn from "../Buttons/PrimaryBtn";
 
 export default function Footer() {
   return (
-    <footer className="relative flex flex-col">
+    <footer className="relative flex flex-col bg-white">
       {/* first road of footer  */}
       <div className="md:flex md:p-[110px] border-y-2 pt-5">
         <span className="w-1/2">
@@ -70,7 +70,7 @@ export default function Footer() {
               Updates, and More!
             </span>
             <input type="text" placeholder="Enter Your Email" className="h-[68px] max-w-[359px] px-5 rounded-[25px]"/>
-            <PrimaryBtn title="Subscribe"/>
+            <PrimaryBtn text="Subscribe"/>
           </div>
         </div>
       </div>

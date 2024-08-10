@@ -1,28 +1,28 @@
-import Link from 'next/link';
+import Image from 'next/image';
 import React from 'react'
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa"; 
 
+type Comp = {
+  title: string;
+  desc: string;
+}
 
-const GetStarted = () => {
+const GetStartedComponent = ({title, desc}: Comp) => {
   return (
-    <>
-        <div className='bg-white w-[591px] h-[148px] flex gap-[15px] items-center p-6 rounded-xl'>
-            <div className='border w-[163px] h-[100px]'></div>
-            <div className='flex flex-col'>
-                <span className='font-bold'>Get Started as a Vendor</span>
-                <span className='font-xs text-sm text-gray-500'>Seamless Convenience: Swift, Free Delivery to Your Door!</span>
-            </div>
-               <Link href="/get-started/vendor">
-               
-                  <div className='bg-gray-200 rounded-xl w-[40px] h-[40px] flex items-center justify-center hover:cursor-pointer'>
-                  <FaArrowRight />
-                  </div>
-                
-               </Link> 
-                
-        </div>
-    </>
+    <div className='p-3 flex items-center gap-3 mb-4'>
+      <div className='bg-red-600 h-24 w-32 rounded-2xl'>
+        <Image src={''} alt=''/>
+      </div>
+      <div className=''>
+        <h3 className='font-semibold'>{title}</h3>
+        <p>{desc}</p>
+      </div>
+      <div className='text-2xl bg-gray-100 w-8 h-8 flex items-center justify-center'>
+      < FaArrowRight  />
+      </div>
+      
+    </div>
   )
 }
 
-export default GetStarted
+export default GetStartedComponent

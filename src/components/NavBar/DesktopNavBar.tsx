@@ -1,96 +1,72 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { FaRegUser } from "react-icons/fa6";
+import { RiSearch2Line } from "react-icons/ri";
+import { FaRegHeart } from "react-icons/fa6";
+import { IoCartOutline } from "react-icons/io5";
+import { middleMenu } from "./NavBarMenu/NavMenu";
+import { useState } from "react";
 
 export default function NavBar() {
-  const productsDataSet = [
-    {
-      product: "Cakes",
-      link: "#"
-    },
-    {
-      product: "Drinks",
-      link: "#"
-    },
-    {
-      product: "Venues",
-      link: "#"
-    },
-    {
-      product: "Caterers",
-      link: "#"
-    },
-    {
-      product: "DJs",
-      link: "#"
-    },
-    {
-      product: "MCs",
-      link: "#"
-    },
-    {
-      product: "Photographers",
-      link: "#"
-    },
-    {
-      product: "Party decorators",
-      link: "#"
-    },
-    {
-      product: "Vendors",
-      link: "#"
+  const [click, setClick] = useState< number | null>(null)
+  const [dropDown, setDropDown] = useState(false)
+
+  const handleDropDown = (menu : number) => {
+    if(click === menu) {
+      setClick(null)
+      setDropDown(false)
+    }else {
+      setClick(menu)
+      setDropDown(!dropDown)
     }
-  ];
+  }
+  
 
   return (
-    <nav className="h-[90px] bg-transparent flex align-middle p-[32px]">
+    <nav className="h-[90px] flex items-center justify-between px-12 bg-white">
       {/* start --> logo */}
-      <div className="ps-[32px] relative" style={{ top: "-5px" }}>
+      <Link href={'/'} className=" relative h-20 w-48">
         <Image
           src="/assets/img/logo.png"
           alt="Logo"
-          width={179}
-          height={49}
-          style={{ width: "auto", height: "auto", position: "relative", top: "-5px" }}
+          fill
+          className="object-contain"
         />
-      </div>
+      </Link>
 
       {/* middle */}
-      <div>Would rebuild this</div>
+      <div className="flex flex-1 justify-center gap-12 text-lg ">
+        {middleMenu.map(menu => {
+          return (
+            <>
+            <Link 
+            key={menu.id} 
+            href= {`${menu.dropDown ? "" : `/${menu.menu.toLowerCase()}`}`}
+            className="relative"
+            onClick={() => handleDropDown(menu.id)}
+            >
+              {menu.menu}
+              {/* DropDow Menu */}
+              {
+                click === menu.id && dropDown &&
+              <div className='absolute top-10 left-0.5 flex flex-col bg-white border cursor-pointer'>
+                {menu.dropMenu?.map(menu => <Link key={menu.menu} className="p-2" href='/'>{menu.menu}</Link>)}
+              </div>
+              }
+            </Link>
+            </>
+          )
+        } )}
+      </div>
 
       {/* icons with navs */}
-      <div
-        className="flex gap-5 pe-[32px]"
-        style={{ justifyContent: "center", alignItems: "center" }}
-      >
-        <Image
-          src="/assets/img/profile.png"
-          alt="Profile"
-          height={24}
-          width={24}
-          className="inline-block w-[24px] h-[24px]"
-        />
-        <Image
-          src="/assets/img/heart.png"
-          alt="Favorites"
-          height={24}
-          width={24}
-          className="inline-block w-[24px] h-[24px]"
-        />
-        <Image
-          src="/assets/img/search-normal.png"
-          alt="Search"
-          height={24}
-          width={24}
-          className="inline-block w-[24px] h-[24px]"
-        />
-        <Image
-          src="/assets/img/shopping-cart.png"
-          alt="Cart"
-          height={24}
-          width={24}
-          className="inline-block w-[24px] h-[24px]"
-        />
+      <div className = 'flex items-center  justify-end text-2xl gap-5'>
+      <FaRegUser />
+      <RiSearch2Line />
+      <FaRegHeart />
+      <IoCartOutline />
+
       </div>
     </nav>
   );
