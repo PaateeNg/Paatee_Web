@@ -29,6 +29,8 @@ td, th {
 
 /* Inout container */
 
+
+/* come back to change it for get started */
 .input {
   display: flex;
   flex-direction: column;
@@ -38,7 +40,16 @@ td, th {
 
 input{
   padding: 10px;
-  width: 89%;
+}
+
+.or{
+  text-align: center;
+}
+.or::after{
+  content: '';
+  width: 1000px;
+  height: 2000px;
+  background-color: red;
 }
 
 

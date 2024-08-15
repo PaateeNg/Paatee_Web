@@ -6,11 +6,30 @@ import { RiSearch2Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoCartOutline } from "react-icons/io5";
 import { middleMenu } from "./NavBarMenu/NavMenu";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import PrimaryBtn from "../Buttons/PrimaryBtn";
+import { NavbarContext } from "@/lib/context/NavbarContext";
+import { usePathname } from "next/navigation";
 
 export default function NavBar() {
   const [click, setClick] = useState< number | null>(null)
   const [dropDown, setDropDown] = useState(false)
+  const context = useContext(NavbarContext)
+  const pathName = usePathname();
+  
+  const showNavbar = context?.showNavbar;
+
+  if(pathName === '/'){
+    context?.setShowNavbar(true);
+  }else if(pathName === '/sign-in'){
+    context?.setShowNavbar(false);
+  }else if(pathName === '/forgot-password'){
+    context?.setShowNavbar(false);
+  }else if(pathName === '/sign-up'){
+    context?.setShowNavbar(false);
+  }
+
+  const session = false;
 
   const handleDropDown = (menu : number) => {
     if(click === menu) {
@@ -24,7 +43,10 @@ export default function NavBar() {
   
 
   return (
-    <nav className="h-[90px] flex items-center justify-between px-12 bg-white">
+   <>
+    {showNavbar 
+      &&
+      <nav className="h-[90px] flex items-center justify-between px-12 bg-white">
       {/* start --> logo */}
       <Link href={'/'} className=" relative h-20 w-48">
         <Image
@@ -41,7 +63,7 @@ export default function NavBar() {
           return (
             <>
             <Link 
-            key={menu.id} 
+            key={menu.id}
             href= {`${menu.dropDown ? "" : `/${menu.menu.toLowerCase()}`}`}
             className="relative"
             onClick={() => handleDropDown(menu.id)}
@@ -60,14 +82,20 @@ export default function NavBar() {
         } )}
       </div>
 
-      {/* icons with navs */}
+      {/* icons with navs and button for get started */}
+      {session ? 
       <div className = 'flex items-center  justify-end text-2xl gap-5'>
       <FaRegUser />
       <RiSearch2Line />
       <FaRegHeart />
       <IoCartOutline />
-
       </div>
+      : <Link href={'./sign-up'}>
+        <PrimaryBtn center={true} text="Join us"/>
+      </Link>
+            }
     </nav>
+    }
+   </>
   );
 }

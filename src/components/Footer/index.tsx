@@ -1,8 +1,27 @@
+'use client'
+
 import Image from "next/image";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
+import { useContext, useState } from "react";
+import { usePathname } from "next/navigation";
+import { NavbarContext } from "@/lib/context/NavbarContext";
 
 export default function Footer() {
+  const context = useContext(NavbarContext)
+  const pathName = usePathname();
+  
+  const showNavbar = context?.showNavbar;
+
+  if(pathName === '/'){
+    context?.setShowNavbar(true);
+  }else if(pathName === '/sign-in'){
+    context?.setShowNavbar(false);
+  }
   return (
+    <>
+    
+    {showNavbar 
+    &&
     <footer className="relative flex flex-col bg-white">
       {/* first road of footer  */}
       <div className="md:flex md:p-[110px] border-y-2 pt-5">
@@ -89,5 +108,7 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    }
+    </>
   );
 }
