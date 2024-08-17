@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* src/fonts.css */
+@import url('https://fonts.googleapis.com/css2?family=Sankofa+Display&display=swap');
+
 
 
 *{
@@ -8,6 +11,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* .sankofa{
+  font-family: "Sankofa Display", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+} */
 
 body {
   background-color: #f3f4f6;
@@ -26,6 +34,7 @@ td, th {
   padding: 8px;
   border: none;
 }
+
 
 /* Inout container */
 
