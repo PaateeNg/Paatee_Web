@@ -29,7 +29,7 @@ export default function NavBar() {
     context?.setShowNavbar(false);
   }
 
-  const session = false;
+  const session = true;
 
   const handleDropDown = (menu : number) => {
     if(click === menu) {
