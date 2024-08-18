@@ -19,13 +19,20 @@ export default function NavBar() {
   
   const showNavbar = context?.showNavbar;
 
-  if(pathName === '/'){
+  // if(pathName === '/'){
+  //   context?.setShowNavbar(true);
+  // }else if(pathName === '/sign-in'){
+  //   context?.setShowNavbar(false);
+  // }else if(pathName === '/forgot-password'){
+  //   context?.setShowNavbar(false);
+  // }else if(pathName === '/sign-up'){
+  //   context?.setShowNavbar(false);
+  // }
+
+//better way to write the above
+  if (pathName === '/') {
     context?.setShowNavbar(true);
-  }else if(pathName === '/sign-in'){
-    context?.setShowNavbar(false);
-  }else if(pathName === '/forgot-password'){
-    context?.setShowNavbar(false);
-  }else if(pathName === '/sign-up'){
+  } else if (['/sign-in', '/forgot-password', '/sign-up'].includes(pathName)) {
     context?.setShowNavbar(false);
   }
 
@@ -59,9 +66,7 @@ export default function NavBar() {
 
       {/* middle */}
       <div className="flex flex-1 justify-center gap-12 text-lg ">
-        {middleMenu.map(menu => {
-          return (
-            <>
+        {middleMenu.map(menu => (
             <Link 
             key={menu.id}
             href= {`${menu.dropDown ? "" : `/${menu.menu.toLowerCase()}`}`}
@@ -77,9 +82,7 @@ export default function NavBar() {
               </div>
               }
             </Link>
-            </>
-          )
-        } )}
+        ) )}
       </div>
 
       {/* icons with navs and button for get started */}

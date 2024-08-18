@@ -1,5 +1,14 @@
-
-
+type DropMenu = {
+    menu: string;
+    menuCategory?:string[];
+}
+type Menu = {
+    id: number;
+    menu: string;
+    dropDown: boolean;
+    dropMenu?: DropMenu[];
+    // dropMenu?: (string | string[] | Record<string, string>)[];
+}
 
 
 
@@ -22,10 +31,3 @@ export const middleMenu: Menu[] = [
     {id: 5, menu: 'Join us', dropDown: true},
 ]
 
-type Menu = {
-    id: number;
-    menu: string;
-    dropDown: boolean;
-    dropMenu?: any[];
-    // dropMenu?: (string | string[] | Record<string, string>)[];
-}
