@@ -4,7 +4,7 @@ import "swiper/swiper-bundle.css";
 
 export default function Testimonials() {
   return (
-    <div className="ps-[51px] my-[50px]">
+    <div className="ps-3 my-[50px]">
       <div className="mb-[10px]">
         <div className="inline-flex justify-center align-middle me-3">
         <span className="inline-block w-[22px] h-[2px] bg-[#F63D68]"></span>

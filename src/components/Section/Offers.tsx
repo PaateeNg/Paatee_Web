@@ -41,9 +41,9 @@ export default function Offer() {
   ];
 
   return (
-    <div className="w-full p-[48px] pb-[150px]">
-      <div className="w-full flex flex-col justify-center align-middle items-center">
-        <span
+    <div className="px-3">
+      <div className="flex flex-col justify-center align-middle items-center">
+        <h3
           className="text-[34px] font-[700]"
           style={{
             backgroundImage: "linear-gradient(to right, #F63D68, #90243D)",
@@ -53,14 +53,14 @@ export default function Offer() {
           }}
         >
           Our Offers for you
-        </span>
-        <span className="text-[18px] text-[#667085] inline-block my-5">
+        </h3>
+        <p className="text-[18px] text-center text-[#667085] inline-block my-2">
           Explore a World of Exclusive Deals and Tailored Promotions: Our Offers
           Await You
-        </span>
+        </p>
       </div>
 
-      <div className="w-full flex justify-between">
+      <div className="w-full flex flex-col md:flex-row justify-between">
         {offerData.map((item, index) => {
           return (
             <OfferBtn

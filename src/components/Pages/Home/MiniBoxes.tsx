@@ -11,7 +11,7 @@ import photographyImg from "./../../../../public/assets/img/cameraIcon.png";
 export default function MiniBoxes() {
   return (
     <div className="flex w-full xl:justify-center px-3">
-      <div className="flex justify-between py-5 w-full max-w-[1240px]">
+      <div className="flex flex-wrap md:justify-between py-5 w-full ">
         <MiniBox title="Venues" img={venuesImg}/>
         <MiniBox title="Foods" img={foodsImg}/>
         <MiniBox title="Drinks" img={drinksImg}/>

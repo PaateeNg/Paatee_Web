@@ -9,19 +9,27 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 import SocialBtn from '@/components/auths/buttons/SocialBtn'
 import Logo from '@/components/logo/Logo'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const route = useRouter();
+
+    const handleSignUp = (e:any) => {
+      e.preventDefault();
+      route.push('/sign-up/verification-otp')
+    }
+
   return (
     <>
-    <div className='flex flex-col gap-5 px-6 pt-6'>
+    <div className='flex flex-col gap-5 px-6 pt-6 sm:max-w-[500px] sm:m-auto'>
       <Logo/>
       <h2 className='font-bold text-2xl'>Create your account</h2>
       <p className='font-light'>Become a Paatee person by creating an account</p>
       <SocialBtn social={<FcGoogle />} text={'Sign in with Google'}/>
       <SocialBtn social={<FaApple />} text={'Sign in with Apple Id'}/>
       <p className='or'>or</p>
-      <form className='flex flex-col gap-7'>
+      <form onSubmit={handleSignUp} className='flex flex-col gap-7'>
          <div className='flex flex-col'>
           <label>Full name</label>
           <input className='rounded-full outline-none border-2 border-gray-200' type="text" placeholder="Name"/>

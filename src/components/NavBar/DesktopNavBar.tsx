@@ -10,6 +10,7 @@ import { useContext, useState } from "react";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
 import { NavbarContext } from "@/lib/context/NavbarContext";
 import { usePathname } from "next/navigation";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function NavBar() {
   const [click, setClick] = useState< number | null>(null)
@@ -36,7 +37,7 @@ export default function NavBar() {
     context?.setShowNavbar(false);
   }
 
-  const session = true;
+  const session = false;
 
   const handleDropDown = (menu : number) => {
     if(click === menu) {
@@ -53,7 +54,7 @@ export default function NavBar() {
    <>
     {showNavbar 
       &&
-      <nav className="h-[90px] flex items-center justify-between px-12 bg-white">
+      <nav className="h-[90px] flex items-center justify-between px-8 bg-white">
       {/* start --> logo */}
       <Link href={'/'} className=" relative h-20 w-48">
         <Image
@@ -65,7 +66,7 @@ export default function NavBar() {
       </Link>
 
       {/* middle */}
-      <div className="flex flex-1 justify-center gap-12 text-lg ">
+      <div className=" hidden md:flex md:flex-1 md:justify-center md:gap-12 text-lg ">
         {middleMenu.map(menu => (
             <Link 
             key={menu.id}
@@ -87,16 +88,17 @@ export default function NavBar() {
 
       {/* icons with navs and button for get started */}
       {session ? 
-      <div className = 'flex items-center  justify-end text-2xl gap-5'>
-      <FaRegUser />
-      <RiSearch2Line />
-      <FaRegHeart />
-      <IoCartOutline />
-      </div>
-      : <Link href={'./sign-up'}>
-        <PrimaryBtn center={true} text="Join us"/>
-      </Link>
-            }
+        <div className = 'hidden md:flex md:items-center md:justify-end text-2xl gap-5'>
+        <FaRegUser />
+        <RiSearch2Line />
+        <FaRegHeart />
+        <IoCartOutline />
+        </div>
+        : <Link className="hidden md:block" href={'./sign-up'}>
+          <PrimaryBtn center={true} text="Join us"/>
+        </Link>
+      }
+      <GiHamburgerMenu className="text-4xl  md:hidden" />
     </nav>
     }
    </>

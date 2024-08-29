@@ -7,7 +7,7 @@ const MiniBox: React.FC<{ img?: StaticImageData; title?: string }> = ({
   img = "/assets/img/venueIcon.png"
 }) => {
   return (
-    <div className="flex flex-col justify-center align-middle">
+    <div className="flex flex-col justify-center align-middle w-1/4 md:w-auto">
       <Image
         src={img}
         alt=""

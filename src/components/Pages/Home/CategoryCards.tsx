@@ -5,7 +5,7 @@ import venuesImg from './../../../../public/assets/img/venueImg.jpeg';
 
 export default function CategoryCards() {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-col md:flex-row">
       <CategoryCard title="PARTY ITEMS" img={partyItemsImg}/>
       <CategoryCard title="PARTY PLANNERS" img={partyPlannerImg}/>
       <CategoryCard title="VENUES" img={venuesImg}/>

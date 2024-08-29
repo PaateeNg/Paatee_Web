@@ -22,7 +22,7 @@ const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
 
   return (
     <>
-      <div className='flex flex-col gap-5 px-6 pt-6'>
+      <div className='flex flex-col gap-5 px-6 pt-6 sm:max-w-[500px] sm:m-auto'>
         <Logo/>
         <h2 className='font-bold text-2xl'>Sign in</h2>
         <p className='font-light'>Get into your account and bein exploring</p>
