@@ -5,6 +5,7 @@ import NavBar from "@/components/NavBar/DesktopNavBar";
 import Footer from "@/components/Footer";
 import dynamic from 'next/dynamic'
 import { NavbarProvider } from "@/lib/context/NavbarContext";
+import { AuthProvider } from "@/lib/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,12 +27,17 @@ export default function RootLayout({
       <body className={inter.className}>
       {/* called this component from a Apollo component i created beceuase this layout is a server component that cant be changed */}
         <ClientApolloProvider>
+          {/* For the storing user is logged in */}
+          <AuthProvider>
+
           {/* for the navbar to show at setting pages */}
           <NavbarProvider>
           <NavBar />
           {children}
           <Footer />
           </NavbarProvider>
+            
+          </AuthProvider>
           
         </ClientApolloProvider>
         

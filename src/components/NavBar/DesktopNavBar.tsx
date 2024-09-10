@@ -11,24 +11,18 @@ import PrimaryBtn from "../Buttons/PrimaryBtn";
 import { NavbarContext } from "@/lib/context/NavbarContext";
 import { usePathname } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { AuthContext } from "@/lib/context/UserContext";
+
 
 export default function NavBar() {
+  const {user, login} = useContext(AuthContext)
+  console.log(user);
   const [click, setClick] = useState< number | null>(null)
   const [dropDown, setDropDown] = useState(false)
   const context = useContext(NavbarContext)
   const pathName = usePathname();
   
   const showNavbar = context?.showNavbar;
-
-  // if(pathName === '/'){
-  //   context?.setShowNavbar(true);
-  // }else if(pathName === '/sign-in'){
-  //   context?.setShowNavbar(false);
-  // }else if(pathName === '/forgot-password'){
-  //   context?.setShowNavbar(false);
-  // }else if(pathName === '/sign-up'){
-  //   context?.setShowNavbar(false);
-  // }
 
 //better way to write the above
   if (pathName === '/') {
@@ -37,7 +31,6 @@ export default function NavBar() {
     context?.setShowNavbar(false);
   }
 
-  const session = false;
 
   const handleDropDown = (menu : number) => {
     if(click === menu) {
@@ -87,7 +80,7 @@ export default function NavBar() {
       </div>
 
       {/* icons with navs and button for get started */}
-      {session ? 
+      {user ? 
         <div className = 'hidden md:flex md:items-center md:justify-end text-2xl gap-5'>
         <FaRegUser />
         <RiSearch2Line />

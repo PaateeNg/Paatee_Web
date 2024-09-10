@@ -8,12 +8,14 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import Logo from '@/components/logo/Logo'
 import { gql, useMutation } from '@apollo/client'
 import { useRouter } from 'next/navigation'
+import { AuthContext } from '@/lib/context/UserContext'
 
 const Login = () => {
+  const context = useContext(AuthContext);
   const route = useRouter()
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -26,8 +28,8 @@ const Login = () => {
     onCompleted: () => {
       route.push('/')
     },
-    update(proxy, result){
-      console.log(result)
+    update(_, {data : {login : userData}}){
+      context.login(userData);
     },
     onError(err){
       setError(err.message)

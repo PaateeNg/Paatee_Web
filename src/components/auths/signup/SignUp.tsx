@@ -11,6 +11,11 @@ import Customer from './Customer'
 import Vendor from './Vendor'
 import PartyPlanner from './PartyPlanner'
 
+//come back for this so ill use middleware
+import { AuthContext } from '@/lib/context/UserContext'
+import { redirect } from 'next/navigation';
+import { useContext } from 'react'
+
 const signup = [
   {id:1, label: 'customer', content:<Customer/>},
   {id:2, label: 'vendor', content:<Vendor/>},
@@ -26,6 +31,12 @@ const SignUp = () => {
       return activeItem ? activeItem.content : null
     }
 
+    //come back fro this so ill use middleware
+    const { user } = useContext(AuthContext);
+
+  if(user){
+    redirect('/')
+  }
 
   return (
     <>
