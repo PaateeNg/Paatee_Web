@@ -58,7 +58,7 @@ export default function NavBar() {
       {/* start --> logo */}
       <Link href={'/'} className=" relative h-20 w-48">
         <Image
-          src="/assets/img/logo.png"
+          src="/logo.png"
           alt="Logo"
           fill
           className="object-contain"
@@ -81,7 +81,7 @@ export default function NavBar() {
               <div className='absolute top-10 left-0.5 flex flex-col bg-white border cursor-pointer'>
                 {menu.dropMenu?.map(menu => <Link key={menu.menu} className="p-2" href='/'>{menu.menu}</Link>)}
               </div>
-              }
+              } 
             </Link>
         ) )}
       </div>

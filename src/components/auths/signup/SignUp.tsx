@@ -4,51 +4,57 @@ import React from 'react'
 import { FaApple } from 'react-icons/fa6'
 import { FcGoogle } from 'react-icons/fc'
 import { useState } from 'react'
-import AuthBtn from '@/components/Buttons/AuthBtn'
-import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 import SocialBtn from '@/components/auths/buttons/SocialBtn'
 import Logo from '@/components/logo/Logo'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import Customer from './Customer'
+import Vendor from './Vendor'
+import PartyPlanner from './PartyPlanner'
+
+const signup = [
+  {id:1, label: 'customer', content:<Customer/>},
+  {id:2, label: 'vendor', content:<Vendor/>},
+  {id:3, label: 'party planner', content:<PartyPlanner/>}
+]
 
 const SignUp = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    const route = useRouter();
+    //For Active menu
+    const [activeMenu, setActiveMenu] = useState(signup[0].id);
 
-    const handleSignUp = (e:any) => {
-      e.preventDefault();
-      route.push('/sign-up/verification-otp')
+    const renderedComponent = () => {
+      const activeItem = signup.find(item => item.id === activeMenu)
+      return activeItem ? activeItem.content : null
     }
+
 
   return (
     <>
-    <div className='flex flex-col gap-5 px-6 pt-6 sm:max-w-[500px] sm:m-auto'>
-      <Logo/>
-      <h2 className='font-bold text-2xl'>Create your account</h2>
-      <p className='font-light'>Become a Paatee person by creating an account</p>
+    <div className='flex flex-col px-6 pt-6 sm:max-w-[500px] pb-5 sm:m-auto bg-white'>
+      <h2 className='font-bold mb-2 text-2xl'>Create your account</h2>
+      <p className='font-light mb-2'>Become a Paatee person by creating an account</p>
+      <div className='flex justify-between mt-10'>
+        {
+          signup.map(menu => (
+            <div 
+            className={`cursor-pointer py-2 px-5 mb-5 text-xl focus:outline-none ${activeMenu === menu.id ? 'border-b-2 border-blue-500 text-blue-500' : ''}`}
+            onClick={() => setActiveMenu(menu.id)}
+            key={menu.id}
+            >
+              {menu.label}
+            </div>
+          ))
+        }
+      </div>
+      <div className='mb-8'>
+        {renderedComponent()}
+      </div>
+      <div className='flex justify-center items-center gap-4 mb-8'>
+        <div className='h-[1px] w-[80%] bg-[#b5b6b8]'/>
+        <p className='text-center '>or</p>
+        <div className='h-[1px] w-[80%] bg-[#b5b6b8]'/>
+      </div>
       <SocialBtn social={<FcGoogle />} text={'Sign in with Google'}/>
       <SocialBtn social={<FaApple />} text={'Sign in with Apple Id'}/>
-      <p className='or'>or</p>
-      <form onSubmit={handleSignUp} className='flex flex-col gap-7'>
-         <div className='flex flex-col'>
-          <label>Full name</label>
-          <input className='rounded-full outline-none border-2 border-gray-200' type="text" placeholder="Name"/>
-        </div >
-        <div className='flex flex-col'>
-          <label>Email address</label>
-          <input className='rounded-full outline-none border-2 border-gray-200' type="text" placeholder="Email"/>
-        </div >
-        <div className='flex flex-col relative'>
-          <label>Password</label>
-          <input className=' rounded-full outline-none border-2 border-gray-200' type={showPassword ? 'text' : 'password'} placeholder="Password" />
-          <span onClick={() => setShowPassword(prev => !prev)} className='absolute right-6 bottom-4'>{showPassword ? <IoMdEye /> : <IoMdEyeOff />}</span>
-        </div>
-        <span className='font-light text-xs -mt-7 text-gray-600'>Must be at least8 characters</span>
-        <div>
-        <input type="checkbox" className='mr-2' /><span className='border-b border-gray-400'>I agree with the terms and conditions</span>
-        </div>
-        <AuthBtn text={'Proceed'}/>
-      </form>
       <div className='text-center mt-4'>
       <p>If you already have an account just <Link href={'./sign-in'} className='text-[#F63D6B] font-semibold'>Sign in</Link></p>
       

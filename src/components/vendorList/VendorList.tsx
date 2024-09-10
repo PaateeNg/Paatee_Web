@@ -16,7 +16,7 @@ const VendorList = () => {
         <>
         {vendors.map( (vendor) => { 
           return (
-            <div>
+            <div key={vendor.email}>
               <PlannerCard email={vendor.email} firstName={vendor.firstName} lastName={vendor.lastName} />
             </div>
           )

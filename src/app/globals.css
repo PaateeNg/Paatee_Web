@@ -35,21 +35,11 @@ td, th {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 20px;
 }
 
-input{
+input,select{
   padding: 10px;
 }
 
-.or{
-  text-align: center;
-}
-.or::after{
-  content: '';
-  width: 1000px;
-  height: 2000px;
-  background-color: red;
-}
 
 

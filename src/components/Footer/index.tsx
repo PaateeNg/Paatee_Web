@@ -35,7 +35,7 @@ export default function Footer() {
       <div className="md:flex pt-10 mb-4 md:border-b border-gray-100 pb-14">
         <div className="w-1/2 mb-5">
           <Image
-            src="/assets/img/Logo3.png"
+            src="/Logo3.png"
             alt=""
             width={123.95}
             height={41.7}
@@ -51,11 +51,11 @@ export default function Footer() {
       <div className="flex flex-col gap-2 md:gap-0 md:flex-row  ">
         <div className="flex flex-wrap md:flex-nowrap flex-1">
         {footerMenu.map(menu => (
-          <div className="w-1/2 mb-6">
+          <div key={menu.header} className="w-1/2 mb-6">
             <h5 className="text-2xl font-semibold mb-3">{menu.header}</h5>
             <div>
             {menu.menus.map(menu => (
-              <Link className="block text-lg" href={'/'}>{menu}</Link>
+              <Link key={menu} className="block text-lg" href={'/'}>{menu}</Link>
             ))}
             </div>
           </div>
@@ -78,11 +78,11 @@ export default function Footer() {
       {/* Where copyright and social media icons are */}
       <div className="flex flex-col md:px-[110px] items-center justify-center md:pb-[30px] gap-5">
       <div className="flex w-fit justify-end gap-5">
-            <Image src="/assets/img/Facebook.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
-            <Image src="/assets/img/Twitter.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
-            <Image src="/assets/img/Instagram.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
-            <Image src="/assets/img/Linkedin.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
-            <Image src="/assets/img/Youtube.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
+            <Image src="/Facebook.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
+            <Image src="/Twitter.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
+            <Image src="/Instagram.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
+            <Image src="/Linkedin.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
+            <Image src="/Youtube.png" width={10} height={18} alt="" className="w-auto h-auto object-contain"/>
         </div>
         <div>
         Copyright © 2023 Paatee | All Rights Reserved 

@@ -1,27 +1,28 @@
+"use client "
 import React from "react";
-import Image from 'next/image'
-import { StaticImageData } from "next/image";
+import Image from 'next/image';
+import Link from "next/link";
 
-const CategoryCard: React.FC<{ img?: StaticImageData; title?: string }> = ({
-  title = "PARTY ITEMS",
-  img = "/assets/img/partyItemsImg.png"
-}) => {
+
+interface Icard {
+  title: string;
+  img: string;
+  button: string;
+  link: string;
+}
+const CategoryCard = ({title, img, button, link}: Icard) => {
+
+
   return (
-    <div className="relative flex flex-col justify-end items-center md:w-[480px] h-[470px]">
-      <Image src={img} alt="" style={{"width": "auto", "height": "470px", "objectFit": "cover" }}/>
-      <div className="absolute  flex flex-col justify-between  w-[80%] h-[60%]">
-        <div className="flex  items-center justify-center">
-          <span className="text-white text-3xl font-medium">
-            {title}
-          </span>
-        </div>
-        <div className="pb-5 flex justify-center">
-          <span className="w-[125px] h-[44px] bg-white text-black inline-flex justify-center items-center rounded-full hover:bg-slate-400 focus:bg-slate-400 cursor-pointer">
-            Buy Now
-          </span>
-        </div>
+    <>
+      <Image src={img} alt="" fill style={{aspectRatio: "auto", borderRadius: "0.5rem"}}/>
+      <div className="absolute flex flex-col md:justify-end justify-center gap-3 w-[80%] h-[60%]">
+        <h5 className="text-center text-white text-3xl">{title}</h5>
+        <Link href={link} className=" hidden font-semibold mx-auto w-fit px-5 h-[44px] bg-white text-black md:inline-flex justify-center items-center rounded-full hover:bg-slate-400 focus:bg-slate-400 cursor-pointer">
+            {button}
+          </Link>
       </div>
-    </div>
+    </>
   );
 };
 

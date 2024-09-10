@@ -1,14 +1,17 @@
-import { title } from "process";
 import React from "react";
 
+
+interface OfferBtnProps {
+  title: string;
+  desc: string;
+  imgSrc: string;
+  link?: string;
+}
+
+
 export default function Offer() {
-  interface OfferBtnProps {
-    title: string;
-    desc: string;
-    imgSrc: string;
-    link?: string;
-  }
-  const OfferBtn: React.FC<OfferBtnProps> = ({ title, desc, imgSrc, link }) => {
+  
+  const OfferBtn = ({ title, desc, imgSrc, link }: OfferBtnProps) => {
     return (
       <div className="flex flex-col leading-6 mt-5 overflow-hidden">
         <img src={imgSrc} width={64} height={64} alt={`${title} from Paatee`} />
@@ -26,22 +29,22 @@ export default function Offer() {
     {
       title: "Free and Fast Delivery",
       desc: "Seamless Convenience: Swift, Free Delivery to Your Door!",
-      imgSrc: "/assets/img/delivery.png"
+      imgSrc: "/delivery.png"
     },
     {
       title: "24/7 Support",
       desc: "Get Instant Assistance and Expert Guidance Anytime!",
-      imgSrc: "/assets/img/map.png"
+      imgSrc: "/map.png"
     },
     {
       title: "Assured Payment System",
       desc: "Trust Our Secure Payment System for Safe Shopping Every Time.",
-      imgSrc: "/assets/img/connect.png"
+      imgSrc: "/connect.png"
     }
   ];
 
   return (
-    <div className="px-3">
+    <div className="px-5 py-20">
       <div className="flex flex-col justify-center align-middle items-center">
         <h3
           className="text-[34px] font-[700]"
