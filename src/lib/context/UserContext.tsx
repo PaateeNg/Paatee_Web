@@ -1,5 +1,5 @@
 'use client'
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import React, {ReactElement, createContext, useReducer } from "react";
 
 
@@ -17,23 +17,23 @@ const initialState: { user: CustomJwtPayload | null } = {
     user: null,
 };
 
-// Ensure this code runs only in the browser
-if (
-    // typeof window !== 'undefined' && 
-    localStorage.getItem('jwtToken')) {
-    const token = localStorage.getItem('jwtToken');
+// // Ensure this code runs only in the browser
+// if (
+//     // typeof window !== 'undefined' && 
+//     localStorage.getItem('jwtToken')) {
+//     const token = localStorage.getItem('jwtToken');
     
-    if (token) {
-        const decodedToken = jwtDecode(token);
+//     if (token) {
+//         const decodedToken = jwtDecode(token);
         
-        // Check if 'exp' exists and is valid
-        if (decodedToken.exp && decodedToken.exp * 1000 < Date.now()) {
-            localStorage.removeItem("jwtToken");
-        } else if (decodedToken.exp) {
-            initialState.user = decodedToken;
-        }
-    }
-}
+//         // Check if 'exp' exists and is valid
+//         if (decodedToken.exp && decodedToken.exp * 1000 < Date.now()) {
+//             localStorage.removeItem("jwtToken");
+//         } else if (decodedToken.exp) {
+//             initialState.user = decodedToken;
+//         }
+//     }
+// }
 
 
 export const AuthContext = createContext<AuthContextType>({
@@ -67,7 +67,7 @@ export const AuthContextProvider = ({children} : {children: ReactElement}) => {
    const [state, dispatch] =  useReducer(reducer, initialState)
 
    const login = (userData: any) => {
-    localStorage.setItem('jwtToken', userData.accessToken);
+    // localStorage.setItem('jwtToken', userData.accessToken);
     dispatch({
         type: 'LOGIN',
         payload: userData,
@@ -75,7 +75,7 @@ export const AuthContextProvider = ({children} : {children: ReactElement}) => {
 };
 
     const logout = () => {
-        localStorage.removeItem('jwtToken');
+        // localStorage.removeItem('jwtToken');
         dispatch({ type: 'LOGOUT' });
     };
 

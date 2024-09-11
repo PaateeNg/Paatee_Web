@@ -13,6 +13,7 @@ const Vendor = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null)
+  const categoryRef = useRef<HTMLSelectElement>(null);
   const stateRef = useRef<HTMLSelectElement>(null);
   const cityRef = useRef<HTMLSelectElement>(null);
 
@@ -29,7 +30,7 @@ const Vendor = () => {
           setError(error.message)
         }
       },
-      update(proxy, result){
+      update(_, result){
         console.log(result)
       },
     })
@@ -41,6 +42,7 @@ const Vendor = () => {
           variables: {
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
+            category: categoryRef?.current?.value,
             business_phone: phoneRef.current?.value,
             state: stateRef.current?.value,
             city: cityRef.current?.value,
@@ -62,7 +64,7 @@ const Vendor = () => {
     </div>
     <div className='input'>
       <label className='font-semibold'>Vendor Category</label>
-      <select className='rounded-full outline-none border-2 border-gray-200 '>
+      <select ref={categoryRef} className='rounded-full outline-none border-2 border-gray-200 '>
         <option value="" disabled selected>SELECT CATEGORY</option>
         <option value="Drinks">Drinks</option>
         <option value="Cakes">Cakes</option>
@@ -106,10 +108,11 @@ const Vendor = () => {
 }
 
 const REGISTER_VENDOR = gql`
-mutation register($email: String!, $password: String!, $state: String!, $city: String!, $business_phone: String!) {
+mutation register($email: String!, $password: String!, $state: String!, $city: String!, $category: String!  $business_phone: String!) {
 createVendor(payload: {
   email: $email,
     state: $state,
+    category: $category,
     business_phone: $business_phone,
     city: $city
     password: $password

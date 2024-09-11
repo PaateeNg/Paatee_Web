@@ -35,8 +35,8 @@ const PartyPlanner = () => {
           password: passwordRef?.current?.value,
           business_phone: phoneRef?.current?.value,
           state: stateRef?.current?.value,
-          city: cityRef?.current?.value
-          //remainone name of business
+          city: cityRef?.current?.value,
+          businessName: businessRef?.current?.value
         }
       });
       // route.push('/')
@@ -89,11 +89,12 @@ const PartyPlanner = () => {
 
 
   const REGISTER_PLANNER = gql`
-  mutation register($email: String!, $password: String!, $state: String!, $city: String!, $business_phone: String!) {
+  mutation register($email: String!, $password: String!, $state: String!, $city: String!, $business_phone: String!, $businessName: String!) {
   createPlanner(payload: {
     email: $email,
     state: $state,
     business_phone: $business_phone,
+    businessName: $businessName,
     city: $city
     password: $password
   }){

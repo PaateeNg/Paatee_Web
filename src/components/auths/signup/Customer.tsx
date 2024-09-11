@@ -23,7 +23,7 @@ const Customer = () => {
       onCompleted: () => {
         route.push('/sign-in');  // Redirect to sign-in after successful registration
       },
-      update(proxy, result){
+      update(_, result){
         console.log(result)
       },
       onError(err){

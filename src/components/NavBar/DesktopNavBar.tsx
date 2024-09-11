@@ -15,7 +15,7 @@ import { AuthContext } from "@/lib/context/UserContext";
 
 
 export default function NavBar() {
-  const {user, login} = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
   console.log(user);
   const [click, setClick] = useState< number | null>(null)
   const [dropDown, setDropDown] = useState(false)
@@ -23,6 +23,7 @@ export default function NavBar() {
   const pathName = usePathname();
   
   const showNavbar = context?.showNavbar;
+  // console.log(user.userType, 'profile')
 
 //better way to write the above
   if (pathName === '/') {
@@ -82,12 +83,15 @@ export default function NavBar() {
       {/* icons with navs and button for get started */}
       {user ? 
         <div className = 'hidden md:flex md:items-center md:justify-end text-2xl gap-5'>
-        <FaRegUser />
+        <Link href={`/profile/${user.userType}`}><FaRegUser /></Link>
         <RiSearch2Line />
         <FaRegHeart />
         <IoCartOutline />
+        
+        
+        
         </div>
-        : <Link className="hidden md:block" href={'./sign-up'}>
+        : <Link className="hidden md:block" href={'/sign-up'}>
           <PrimaryBtn center={true} text="Join us"/>
         </Link>
       }

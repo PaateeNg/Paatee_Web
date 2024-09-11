@@ -1,6 +1,5 @@
 "use client"
 
-import Image from 'next/image'
 import Link from 'next/link'
 import SocialBtn from '../buttons/SocialBtn'
 import AuthBtn from '@/components/Buttons/AuthBtn'
@@ -25,11 +24,12 @@ const Login = () => {
   const loginRef = useRef<HTMLSelectElement>(null);
 
   const[login, {loading}] = useMutation(LOGIN_USER, {
-    onCompleted: () => {
-      route.push('/')
-    },
     update(_, {data : {login : userData}}){
       context.login(userData);
+      console.log(userData)
+    },
+    onCompleted: () => {
+      route.push('/')
     },
     onError(err){
       setError(err.message)
@@ -72,9 +72,9 @@ const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
           <label className='font-semibold'>Vendor Category</label>
           <select ref={loginRef} className='rounded-full outline-none border-2 border-gray-200 '>
             <option value="" disabled selected>SELECT CATEGORY</option>
-            <option value="asUser">Customer</option>
-            <option value="asVendor">Vendor</option>
-            <option value="Drinks">Planner</option>
+            <option value="customer">Customer</option>
+            <option value="vendor">Vendor</option>
+            <option value="planner">Planner</option>
           </select>
         </div>
           <div className='flex justify-between text-sm -mt-4'>
@@ -104,7 +104,7 @@ const LOGIN_USER = gql`
   }){
       email
       accessToken
-      isUser
+      userType
   }
 }
 `
