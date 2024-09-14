@@ -1,5 +1,4 @@
 import React from 'react'
-import planner1 from '../../../public/assets/img/planner1.png'
 import Image from 'next/image'
 import {Vendor} from "@/lib/queries/GET_VENDORS"
 
@@ -7,7 +6,7 @@ const PVCard = ({ email, firstName, lastName } : Vendor)=> {
   return (
     <>
         <div className=' w-[454px] m-3 shadow-md overflow-hidden' style={{borderRadius: "20px"}}>
-            <Image src={planner1} height={163} width={454} alt="" />
+            <Image src={'/planner1.png'} height={163} width={454} alt="" />
             <div className='p-5'>
                 <div className='mt-5 mb-3'>
                     <div>

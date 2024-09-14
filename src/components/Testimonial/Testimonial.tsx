@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import Male from '../../../public/assets/img/portrait-male.png'
 
 const Testimonial = () => {
 	return (
@@ -15,7 +14,7 @@ const Testimonial = () => {
 					</span>
 				</div>
 				<div className="flex p-3 ">
-					<Image height={62} width={62} className="rounded-full" src={Male} alt="" style={{width: "auto", height: "auto"}} />
+					<Image height={62} width={62} className="rounded-full" src={'/portrait-male.png'} alt="" style={{width: "auto", height: "auto"}} />
 					<div className="flex flex-col justify-center">
 						<span className="font-bold">Adam Smith</span>
 						<span className="text-gray-400">Webflow Developer</span>

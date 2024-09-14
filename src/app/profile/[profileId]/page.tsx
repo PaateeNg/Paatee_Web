@@ -1,27 +1,25 @@
 "use client"
-import BackgroundComponent from '@/components/vendorProfileMenu/background/BackgroundComponent'
-import VendorProfileMenu from '@/components/vendorProfileMenu/vendorProfileMenu'
-import React, { useState } from 'react'
+import CustomerProfile from '@/components/profile/CustomerProfile'
+import PlannerProfile from '@/components/profile/PlannerProfile'
+import Vendorprofile from '@/components/profile/VendorProfile'
+import { useParams } from 'next/navigation'
 
 
 
-const Vendorprofile = () => {
-  const [showBackgroundComponent, setShowBackgroundComponent ] = useState(false);
+const Profile = () => {
+  const {profileId} = useParams()
+  console.log(profileId)
   
-    return (
-      <>
-      <div className='bg-gray-100 h-screen pt-11 text-sm'>
-      { showBackgroundComponent && <BackgroundComponent setShowBackgroundComponent={setShowBackgroundComponent} />}
-        <div className='max-w-6xl m-auto flex flex-col gap-6'>
-          <h2 className='font-extrabold text-3xl'>Vendor profile</h2>
-          <VendorProfileMenu setShowBackgroundComponent={setShowBackgroundComponent}/>
-        </div>
+  if(profileId  === 'customer'){
+    return <CustomerProfile/>
+  }else if (profileId === 'vendor'){
+    return <Vendorprofile/>
+  }else if(profileId === 'planner'){
+    return <PlannerProfile/>
+  }
+    
+      
 
-      </div>
-      
-      </>
-      
-    )
   }
   
-  export default Vendorprofile
+  export default Profile

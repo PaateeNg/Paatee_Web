@@ -1,3 +1,21 @@
+<<<<<<< HEAD:src/components/NavBar/NavBarMenu/NavMenu.ts
+type DropMenu = {
+    menu: string;
+    menuCategory?:string[];
+}
+type Menu = {
+    id: number;
+    menu: string;
+    dropDown: boolean;
+    dropMenu?: DropMenu[];
+    // dropMenu?: (string | string[] | Record<string, string>)[];
+}
+
+
+
+
+=======
+>>>>>>> ca72afb2a9f6366e24f1f2118501c474585d64a7:src/components/NavBar/NavBarMenu/NavMenu.tsx
 export const middleMenu: Menu[] = [
 	{
 		id: 1,
@@ -24,6 +42,8 @@ export const middleMenu: Menu[] = [
 	{ id: 5, menu: "Join us", dropDown: true },
 ];
 
+<<<<<<< HEAD:src/components/NavBar/NavBarMenu/NavMenu.ts
+=======
 type Menu = {
 	id: number;
 	menu: string;
@@ -31,3 +51,4 @@ type Menu = {
 	dropMenu?: any[];
 	// dropMenu?: (string | string[] | Record<string, string>)[];
 };
+>>>>>>> ca72afb2a9f6366e24f1f2118501c474585d64a7:src/components/NavBar/NavBarMenu/NavMenu.tsx

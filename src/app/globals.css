@@ -38,16 +38,17 @@ td, th {
 
 /* Inout container */
 
+
+/* come back to change it for get started */
 .input {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 20px;
 }
 
-input{
+input,select{
   padding: 10px;
-  width: 89%;
 }
+
 
 

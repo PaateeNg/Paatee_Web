@@ -1,28 +1,27 @@
-"use client";
-import Offer from "@/components/Section/Offers";
+
 import HomeBanner from "../../Banner/HomeBanner";
-import CategoryCards from "./CategoryCards";
 import MiniBoxes from "./MiniBoxes";
-import PlannerCards from "./PlannerCards";
-import Products from "./Products";
-import Testimonials from "./Testimonials";
-import VendorCards from "./VendorCards";
-import TopPlanners from "./TopPlanners";
-import TopVendors from "./TopVendors";
+// import Products from "./Products";
+// import Testimonials from "./Testimonials";
+// import TopPlanners from "./TopPlanners";
+// import TopVendors from "./TopVendors";
+// import Offer from "@/components/Section/Offers";
+import CategoryCards from "./CategoryCards";
 
 
 export default function HomePage() {
+	// const session = false
 	return (
 	<>
 	<HomeBanner/>
 	<div className="2xl:flex 2xl:flex-col 2xl:items-center bg-[#f9f9f9]">
 		<MiniBoxes/>
-		<Products/>
+		{/* {session && <Products/>} */}
 		<CategoryCards/>
-		<TopPlanners/>
+		{/* <TopPlanners/>
 		<TopVendors/>
 		<Testimonials/>
-		<Offer/>
+		<Offer/> */}
 	</div>
 	</>
 	)

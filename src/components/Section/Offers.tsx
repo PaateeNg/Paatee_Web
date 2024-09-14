@@ -1,14 +1,17 @@
-import { title } from "process";
 import React from "react";
 
+
+interface OfferBtnProps {
+  title: string;
+  desc: string;
+  imgSrc: string;
+  link?: string;
+}
+
+
 export default function Offer() {
-  interface OfferBtnProps {
-    title: string;
-    desc: string;
-    imgSrc: string;
-    link?: string;
-  }
-  const OfferBtn: React.FC<OfferBtnProps> = ({ title, desc, imgSrc, link }) => {
+  
+  const OfferBtn = ({ title, desc, imgSrc, link }: OfferBtnProps) => {
     return (
       <div className="flex flex-col leading-6 mt-5 overflow-hidden">
         <img src={imgSrc} width={64} height={64} alt={`${title} from Paatee`} />
@@ -26,24 +29,24 @@ export default function Offer() {
     {
       title: "Free and Fast Delivery",
       desc: "Seamless Convenience: Swift, Free Delivery to Your Door!",
-      imgSrc: "/assets/img/delivery.png"
+      imgSrc: "/delivery.png"
     },
     {
       title: "24/7 Support",
       desc: "Get Instant Assistance and Expert Guidance Anytime!",
-      imgSrc: "/assets/img/map.png"
+      imgSrc: "/map.png"
     },
     {
       title: "Assured Payment System",
       desc: "Trust Our Secure Payment System for Safe Shopping Every Time.",
-      imgSrc: "/assets/img/connect.png"
+      imgSrc: "/connect.png"
     }
   ];
 
   return (
-    <div className="w-full p-[48px] pb-[150px]">
-      <div className="w-full flex flex-col justify-center align-middle items-center">
-        <span
+    <div className="px-5 py-20">
+      <div className="flex flex-col justify-center align-middle items-center">
+        <h3
           className="text-[34px] font-[700]"
           style={{
             backgroundImage: "linear-gradient(to right, #F63D68, #90243D)",
@@ -53,14 +56,14 @@ export default function Offer() {
           }}
         >
           Our Offers for you
-        </span>
-        <span className="text-[18px] text-[#667085] inline-block my-5">
+        </h3>
+        <p className="text-[18px] text-center text-[#667085] inline-block my-2">
           Explore a World of Exclusive Deals and Tailored Promotions: Our Offers
           Await You
-        </span>
+        </p>
       </div>
 
-      <div className="w-full flex justify-between">
+      <div className="w-full flex flex-col md:flex-row justify-between">
         {offerData.map((item, index) => {
           return (
             <OfferBtn
