@@ -13,6 +13,7 @@ const CategoryCards = dynamic(() => import("@/components/Pages/Home/CategoryCard
 
 export default function Home() {
   return (
+<<<<<<< HEAD
     <>
     <HomeBanner/>
     <div className="2xl:flex 2xl:flex-col 2xl:items-center bg-[#f9f9f9]">
@@ -23,6 +24,11 @@ export default function Home() {
       <TopVendors/>
       <Testimonials/>
       <Offer/>
+=======
+    <div>
+      <HomePage />
+      
+>>>>>>> ca72afb2a9f6366e24f1f2118501c474585d64a7
     </div>
     </>
   );

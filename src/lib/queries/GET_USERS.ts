@@ -9,3 +9,4 @@ export const GET_VENDORS = gql`
         }
     }
 `;
+

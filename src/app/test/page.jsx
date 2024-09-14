@@ -1,5 +1,5 @@
 import React from 'react'
-import WelcomeUser from '@/components/welcomeUser/WecomeUser'
+import WelcomeUser from '@/components/welcomeUser/WelcomeUser'
 const page = () => {
   return (
     <WelcomeUser/>

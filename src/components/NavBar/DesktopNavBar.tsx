@@ -1,4 +1,7 @@
 "use client";
+
+import styles from './Nav.module.css'
+
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegUser } from "react-icons/fa6";
@@ -15,6 +18,7 @@ import { AuthContext } from "@/lib/context/UserContext";
 
 
 export default function NavBar() {
+<<<<<<< HEAD
   const {user} = useContext(AuthContext)
   console.log(user);
   const [click, setClick] = useState< number | null>(null)
@@ -100,4 +104,78 @@ export default function NavBar() {
     }
    </>
   );
+=======
+	const [click, setClick] = useState<number | null>(null);
+	const [dropDown, setDropDown] = useState(false);
+  
+
+	const handleDropDown = (menu: number) => {
+		if (click === menu) {
+			setClick(null);
+			setDropDown(false);
+		} else {
+			setClick(menu);
+			setDropDown(!dropDown);
+		}
+	};
+
+	return (
+		<nav className="h-[90px] flex items-center justify-between px-12 bg-white">
+			{/* start --> logo */}
+			<Link href={"/"} className=" relative h-[6rem] w-48">
+				<Image
+					src="/assets/img/paatee-logo.png"
+					alt="Logo"
+					fill
+					className="object-contain"
+				/>
+			</Link>
+        <span>Paatee</span>
+
+			{/* middle */}
+			<div className="flex flex-1 justify-center gap-12 text-lg ">
+				{middleMenu.map((menu) => {
+					return (
+						<>
+							<Link
+								key={menu.id}
+								href={`${
+									menu.dropDown
+										? ""
+										: `/${menu.menu.toLowerCase()}`
+								}`}
+								className="relative"
+								onClick={() => handleDropDown(menu.id)}
+							>
+								{menu.menu}
+								{/* DropDow Menu */}
+								{click === menu.id && dropDown && (
+									<div className="absolute top-10 left-0.5 flex flex-col bg-white border cursor-pointer">
+										{menu.dropMenu?.map((menu) => (
+											<Link
+												key={menu.menu}
+												className="p-2"
+												href="/"
+											>
+												{menu.menu}
+											</Link>
+										))}
+									</div>
+								)}
+							</Link>
+						</>
+					);
+				})}
+			</div>
+
+			{/* icons with navs */}
+			<div className="flex items-center  justify-end text-2xl gap-5">
+				<FaRegUser />
+				<RiSearch2Line />
+				<FaRegHeart />
+				<IoCartOutline />
+			</div>
+		</nav>
+	);
+>>>>>>> ca72afb2a9f6366e24f1f2118501c474585d64a7
 }
