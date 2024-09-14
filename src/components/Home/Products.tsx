@@ -1,4 +1,4 @@
-import ProductCard from "../../ProductCard/ProductCard"
+import ProductCard from "../ProductCard/ProductCard"
 import cake1 from './../../../../public/assets/img/cake1.png';
 import cake2 from './../../../../public/assets/img/cake2.png';
 import cake3 from './../../../../public/assets/img/cake3.jpg';

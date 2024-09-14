@@ -1,5 +1,5 @@
 
-import HomeBanner from "../../Banner/HomeBanner";
+import HomeBanner from "../Banner/HomeBanner";
 import MiniBoxes from "./MiniBoxes";
 // import Products from "./Products";
 // import Testimonials from "./Testimonials";
