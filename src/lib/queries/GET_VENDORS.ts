@@ -2,21 +2,25 @@ import { gql } from '@apollo/client';
 
 export const GET_VENDORS = gql`
     query{
-        getAllUser {
-            email
-            firstName
-            lastName
-        }
+    getAllVendor{
+        email
+        firstName
+        lastName
+        productMenu
+        role
     }
+}
 `;
 
 //defining typescript for the vendors 
 export type Vendor = {
-    email: string;
-    firstName: string;
-    lastName: string;
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    productMenu?: any[];
+    role?: string[]
 }
 //we are merging our query for typescript 
 export interface GetVendorData {
-    getAllUser : Vendor[]
+    getAllVendor : Vendor[]
 }

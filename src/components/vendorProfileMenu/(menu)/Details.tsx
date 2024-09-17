@@ -1,6 +1,24 @@
+import { AuthContext } from "@/lib/context/UserContext"
+import { GET_VENDORS, GetVendorData } from "@/lib/queries/GET_VENDORS";
+import { useQuery } from "@apollo/client";
+import { useContext } from "react"
+
 
 
 const Details = () => {
+    const {user} = useContext(AuthContext)
+    const {data} = useQuery<GetVendorData>(GET_VENDORS);
+    console.log(user)
+    console.log(data)
+
+    const userDetails = data?.getAllVendor.find(vendor => (
+        vendor.email === user.email
+    ));
+
+    console.log(userDetails);
+    const {email} = userDetails;
+
+    
     return (
     <>
     <div className="flex flex-col gap-3">
@@ -27,7 +45,7 @@ const Details = () => {
             <div className="flex flex-col gap-5">
                 <div>
                     <h4 className="text-gray-500">Email Address</h4>
-                    <p>Aderonkebalogun@gmail.com</p>
+                    <p>{email}</p>
                 </div>
                 <div>
                     <h4 className="text-gray-500">Date Joined</h4>

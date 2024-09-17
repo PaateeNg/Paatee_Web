@@ -20,7 +20,7 @@ const Vendors = () => {
 
   // Safely cast and check if params contain the 'category' key
   const category = rawParams?.category as string[] | undefined;
-  console.log(category?.[0]); // Use optional chaining for safety
+  console.log(category?.[0]); 
 
   useEffect(() => {
     if (category && category[0]) {
@@ -28,13 +28,15 @@ const Vendors = () => {
         (cate) => cate.title.toLowerCase() === category[0]
       );
 
+      setCategoryImg(cat?.img || ""); // Use fallback empty string
       if (category[0] === "party-planners") {
         setCategoryName("Party Planners");
+        setCategoryImg(cat?.img || "/planner-banner.png"); // Use fallback empty string
       } else {
         setCategoryName(cat?.title || ""); // Use fallback empty string
       }
 
-      setCategoryImg(cat?.img || ""); // Use fallback empty string
+      
     }
   }, [category]);
 

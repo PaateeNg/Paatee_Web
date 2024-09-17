@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import cart from '../../../public/assets/img/shopping-cart.png';
 import { StaticImageData } from 'next/image';
 
 const ProductCard: React.FC<{ img?: StaticImageData, category?: string, categoryBg?: string  }> = ({img, category, categoryBg}) => {
@@ -31,9 +30,9 @@ const ProductCard: React.FC<{ img?: StaticImageData, category?: string, category
                             <span className='text-xl font-bold'>$14</span>
                         </div>
                         <div className='  '>
-                            <div className='bg-black mt-2 rounded-md h-[40px] w-[40px] flex items-center justify-center'>
+                            {/* <div className='bg-black mt-2 rounded-md h-[40px] w-[40px] flex items-center justify-center'>
                                 <Image height={24} width={24} className="" src={cart} alt="" />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
             }

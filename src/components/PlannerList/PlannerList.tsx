@@ -12,7 +12,7 @@ const PlannerList = ({children} : {children: JSX.Element}) => {
     if(error) return <div>error...</div>
   
      //come to change to vendors later//for now the array is empty no mock data
-    const vendors = data?.getAllUser || [];
+    const vendors = data?.getAllVendor || [];
     console.log(vendors)
 
   return (
