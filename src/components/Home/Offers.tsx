@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 
@@ -14,7 +15,7 @@ export default function Offer() {
   const OfferBtn = ({ title, desc, imgSrc, link }: OfferBtnProps) => {
     return (
       <div className="flex flex-col leading-6 mt-5 overflow-hidden">
-        <img src={imgSrc} width={64} height={64} alt={`${title} from Paatee`} />
+        <Image src={imgSrc} width={64} height={64} alt={`${title} from Paatee`} />
         <span className="font-bold text-[20px] mt-3">
           {title}
         </span>
