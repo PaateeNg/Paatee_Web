@@ -1,7 +1,6 @@
 
 import HomeBanner from "@/components/Banner/HomeBanner";
 import MiniBoxes from "@/components/Home/MiniBoxes";
-// import Products from "./Products";
 import Testimonials from "@/components/Home/Testimonials";
 import TopPlanners from "@/components/Home/TopPlanners";
 import TopVendors from "@/components/Home/TopVendors";
@@ -17,7 +16,6 @@ export default function Home() {
     <HomeBanner/>
     <div className="2xl:flex 2xl:flex-col 2xl:items-center bg-[#f9f9f9]">
       <MiniBoxes/>
-      {/* {session && <Products/>} */}
       <CategoryCards/>
       <TopPlanners/>
       <TopVendors/>
