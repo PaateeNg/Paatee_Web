@@ -24,6 +24,8 @@ export default function NavBar() {
   const context = useContext(NavbarContext);
   const pathName = usePathname();
 
+  const [open, setOpen] = useState(false);
+
   const showNavbar = context?.showNavbar;
 
   // Ensure that showNavbar is toggled based on path
@@ -47,7 +49,7 @@ export default function NavBar() {
   return (
     <>
       {showNavbar && (
-        <nav className="h-[90px] flex items-center justify-between px-8 bg-white">
+        <nav className="h-[90px] relative flex items-center justify-between px-8 bg-white">
           {/* Start --> Logo */}
           <Link href="/" className="relative h-20 w-48">
             <Image
@@ -63,7 +65,7 @@ export default function NavBar() {
             {middleMenu.map((menu) => (
               <Link
                 key={menu.id}
-                href={menu.dropDown ? "" : `/${menu.menu.toLowerCase()}`}
+                href={menu.dropDown ? "" : `/${menu.link}`}
                 className="relative"
                 onClick={() => handleDropDown(menu.id)}
               >
@@ -98,7 +100,36 @@ export default function NavBar() {
             </Link>
           )}
 
-          <GiHamburgerMenu className="text-4xl md:hidden" />
+            <div>
+            <GiHamburgerMenu onClick={() => setOpen(!open)} className=" relative  z-10 text-4xl md:hidden  text-red-500"  />
+              <div className={` absolute top-0 right-0 flex flex-col justify-center gap-8 items-center text-white bg-black w-[200px] h-[80vh] transition-all duration-500 ease-in-out ${open ? 'right-0' : '-right-80'} `}>
+              {middleMenu.map((menu) => (
+                 
+                <Link
+                  key={menu.id}
+                  href={menu.dropDown ? "" : `/${menu.link}`}
+                  className="relative"
+                  onClick={() => handleDropDown(menu.id)}
+                >
+                  {menu.menu}
+                  {/* DropDown Menu */}
+                  {click === menu.id && dropDown && (
+                    <div className="absolute top-10 left-0.5 flex flex-col bg-white border cursor-pointer">
+                      {menu.dropMenu?.map((menu) => (
+                        <Link key={menu.menu} className="p-2" href="/">
+                          {menu.menu}
+                        </Link>
+                      ))}
+                    </div>
+                    )}
+                </Link>
+              ))}
+              <Link className="w-[70%]" href="/sign-up">
+                <PrimaryBtn center={true} text="Join us" />
+              </Link>
+              </div>
+            </div>
+          
         </nav>
       )}
     </>
