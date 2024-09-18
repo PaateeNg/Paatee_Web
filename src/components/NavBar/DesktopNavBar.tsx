@@ -102,7 +102,7 @@ export default function NavBar() {
 
             <div>
             <GiHamburgerMenu onClick={() => setOpen(!open)} className=" relative  z-10 text-4xl md:hidden  text-red-500"  />
-              <div className={` absolute top-0 right-0 flex flex-col justify-center gap-8 items-center text-white bg-black w-[200px] h-[80vh] transition-all duration-500 ease-in-out ${open ? 'right-0' : '-right-80'} `}>
+              <div className={`md:hidden absolute top-0 right-0 flex flex-col justify-center gap-8 items-center text-white bg-black w-[200px] h-[80vh] transition-all duration-500 ease-in-out ${open ? 'right-0' : 'right-[-200px]'} `}>
               {middleMenu.map((menu) => (
                  
                 <Link
