@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} overflow-hidden`}>
       {/* called this component from a Apollo component i created beceuase this layout is a server component that cant be changed */}
         <ClientApolloProvider>
           {/* For the storing user is logged in */}

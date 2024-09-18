@@ -49,7 +49,7 @@ export default function NavBar() {
   return (
     <>
       {showNavbar && (
-        <nav className="h-[90px] relative flex items-center justify-between px-8 bg-white overflow-x-hidden">
+        <nav className="h-[90px] relative flex items-center justify-between px-8 bg-white">
           {/* Start --> Logo */}
           <Link href="/" className="relative h-20 w-48">
             <Image
