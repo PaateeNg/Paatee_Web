@@ -16,7 +16,7 @@ const Details = () => {
     ));
 
     console.log(userDetails);
-    const {email} = userDetails;
+    const {email} = userDetails as any;
 
     
     return (
