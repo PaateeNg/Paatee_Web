@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 import AuthBtn from '@/components/Buttons/AuthBtn'
 import { useRouter } from 'next/navigation'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, ApolloError } from '@apollo/client'
 
 const Vendor = () => {
   const route = useRouter();
@@ -23,11 +23,11 @@ const Vendor = () => {
       onCompleted: () => {
         route.push('/sign-in');  // Redirect to sign-in after successful registration
       },
-      onError(err) {
-        const error = err?.graphQLErrors?.[0]?.extensions?.originalError;
+      onError(err:ApolloError) {
+        const error = err?.graphQLErrors?.[0]?.extensions?.originalError as { message?: string } ;
         if (error) {
-          console.log(error.message);//red line as a result from type check BE
-          setError(error.message)
+          console.log(error?.message);//red line as a result from type check BE
+          setError(error?.message || "")
         }
       },
       update(_, result){
