@@ -1,6 +1,7 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 
-const VPBanner = ({name, img}:{name:string | undefined; img:string | undefined}) => {
+const VPBanner = ({name, img}:{name:string | undefined; img:string | StaticImport}) => {
 
 	return (
 		<>
