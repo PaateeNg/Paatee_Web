@@ -49,7 +49,7 @@ export default function NavBar() {
   return (
     <>
       {showNavbar && (
-        <nav className="h-[90px] relative flex items-center justify-between px-8 bg-white">
+        <nav className="h-[90px] relative flex items-center justify-between px-8 bg-white overflow-x-hidden">
           {/* Start --> Logo */}
           <Link href="/" className="relative h-20 w-48">
             <Image
@@ -124,9 +124,21 @@ export default function NavBar() {
                     )}
                 </Link>
               ))}
-              <Link className="w-[70%]" href="/sign-up">
-                <PrimaryBtn center={true} text="Join us" />
+                             {user ? (
+            <div className="flex md:flex md:items-center md:justify-end text-2xl gap-5">
+              <Link href={`/profile/${user.userType}`}>
+                <FaRegUser />
               </Link>
+              <RiSearch2Line />
+              <FaRegHeart />
+              <IoCartOutline />
+            </div>
+          ) : (
+            <Link className=" w-[70%] md:block" href="/sign-up">
+              <PrimaryBtn center={true} text="Join us" />
+            </Link>
+          )}
+
               </div>
             </div>
           
