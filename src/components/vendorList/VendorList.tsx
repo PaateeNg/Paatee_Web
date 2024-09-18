@@ -5,7 +5,7 @@ import { GET_VENDORS, GetVendorData } from "@/lib/queries/GET_VENDORS"
 import { useQuery } from "@apollo/client"
 import PlannerCard from '@/components/PVCard/PVCard'
 
-const VendorList = ({children} : {children: JSX.Element}) => {
+const VendorList = ({children} : {children?: JSX.Element}) => {
     const  {loading, error, data} = useQuery<GetVendorData>(GET_VENDORS);
   
     if(loading) return <div>loading...</div>
