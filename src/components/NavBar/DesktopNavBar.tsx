@@ -2,7 +2,7 @@
 
 import styles from './Nav.module.css'
 
-import Image from "next/image";
+
 import Link from "next/link";
 import { FaRegUser } from "react-icons/fa6";
 import { RiSearch2Line } from "react-icons/ri";
@@ -15,6 +15,7 @@ import { NavbarContext } from "@/lib/context/NavbarContext";
 import { usePathname } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AuthContext } from "@/lib/context/UserContext";
+import Logo from '../logo/Logo';
 
 
 export default function NavBar() {
@@ -52,12 +53,7 @@ export default function NavBar() {
         <nav className="h-[90px] relative flex items-center justify-between px-8 bg-white">
           {/* Start --> Logo */}
           <Link href="/" className="relative h-20 w-48">
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              fill
-              className="object-contain"
-            />
+            <Logo/>
           </Link>
 
           {/* Middle Menu */}
