@@ -19,7 +19,7 @@ const CustomerProfile = () => {
   }
 
   return (
-    <div className="flex gap-5 items-start mx-16">
+    <div className="flex gap-5 items-start mx-16 py-6">
       {/* Sidebar */}
       <div className="flex flex-col w-1/4 bg-white p-4">
         {menu.map(item => (
