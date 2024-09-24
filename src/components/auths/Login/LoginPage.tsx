@@ -52,7 +52,9 @@ const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
   return (
     <>
       <div className='flex flex-col gap-5 px-6 pt-6 sm:max-w-[500px] sm:m-auto'>
-        <Logo/>
+        <div  className="relative h-20 w-48 ">
+          <Logo/>
+        </div>
         <h2 className='font-bold text-2xl'>Welcome back!</h2>
         <p className='font-light'>Sign into your account to pick where you left off</p>
         <SocialBtn social={<FcGoogle />} text={'Sign in with Google'}/>

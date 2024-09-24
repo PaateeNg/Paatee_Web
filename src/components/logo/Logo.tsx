@@ -1,8 +1,14 @@
 import React from 'react'
+import Image from "next/image";
 
 const Logo = () => {
   return (
-    <div className='text-center text-5xl'>PAATEE</div>
+    <Image
+              src="/logo.png"
+              alt="Logo"
+              fill
+              className="object-contain"
+            />
   )
 }
 
