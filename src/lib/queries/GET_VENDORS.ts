@@ -1,12 +1,19 @@
 import { gql } from '@apollo/client';
 
 export const GET_VENDORS = gql`
-    query{
+   query{
     getAllVendor{
         email
-        firstName
-        lastName
         productMenu
+        business_phone
+        businessName
+        category
+        state
+        city
+        businessName
+        location
+        x
+        instagram
         role
     }
 }

@@ -77,6 +77,7 @@ export const AuthContextProvider = ({children} : {children: ReactElement}) => {
     const logout = () => {
         // localStorage.removeItem('jwtToken');
         dispatch({ type: 'LOGOUT' });
+        
     };
 
    return <AuthContext.Provider value={{ user : state.user, login, logout}}>

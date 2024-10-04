@@ -1,6 +1,8 @@
-import React from 'react'
+
 
 const Account = () => {
+    
+
   return (
     <div>
       <h2 className='font-bold text-xl pb-3 mb-6'>Account overview</h2>
@@ -9,7 +11,7 @@ const Account = () => {
             <div className="flex flex-col gap-5"> 
                 <div>
                     <h4 className="text-gray-500">Name</h4>
-                    <p>Aderomke Balogun</p>
+                    <p>Chime Victor</p>
                 </div>
                 <div>
                     <h4 className="text-gray-500">Phone number</h4>
@@ -20,7 +22,7 @@ const Account = () => {
             <div className="flex flex-col gap-5">
                 <div>
                     <h4 className="text-gray-500">Email </h4>
-                    <p>chime</p>
+                    <p>chimevictor.cv@gmail.com</p>
                 </div>
                 <div>
                     <h4 className="text-gray-500">Physical Adress</h4>

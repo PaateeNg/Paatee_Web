@@ -1,5 +1,6 @@
 'use client'
 import { vendorProduct } from '@/components/vendorProfileMenu/mock data/Data'
+import { gql } from '@apollo/client';
 import { useState } from 'react'
 import { CiEdit } from "react-icons/ci";
 //Styles in global css
