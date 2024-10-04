@@ -32,12 +32,9 @@ const VendorProfileMenu = ({setShowBackgroundComponent}) => {
         </div>
         {/* Outlet */}
         <div className='flex gap-5  pt-4 px-5 '>
-        <div className='w-14 h-12 rounded-xl bg-red-600'>
-        </div>
-        <div className='flex gap-10 w-full pb-5'> 
-            {renderedComponent()}
-        </div>
-            
+            <div className='flex gap-10 w-full pb-5'> 
+                {renderedComponent()}
+            </div>  
         </div>
     </div>
 }

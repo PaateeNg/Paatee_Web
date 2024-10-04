@@ -16,17 +16,14 @@ const Details = () => {
     ));
 
     console.log(userDetails);
-    const {email} = userDetails as any;
+    const {email, business_phone, businessName, category, city, state} = userDetails as any;
 
     
     return (
     <>
-    <div className="flex flex-col gap-3">
-        {/* header */}
+    {/* <div className="flex flex-col gap-3">
         <h3 className="font-extrabold ">Personal details</h3>
-        {/* infos */}
         <div className="flex gap-8">
-            {/* inner info */}
             <div className="flex flex-col gap-5"> 
                 <div>
                     <h4 className="text-gray-500">Vendor Name</h4>
@@ -41,7 +38,6 @@ const Details = () => {
                     <p>Doc Submitted</p>
                 </div>
             </div>
-            {/* inner info */}
             <div className="flex flex-col gap-5">
                 <div>
                     <h4 className="text-gray-500">Email Address</h4>
@@ -57,47 +53,48 @@ const Details = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </div> */}
 
     
 
     <div className="flex flex-col gap-3">
-        {/* header */}
-        <h3 className="font-extrabold">Business Details</h3>
-        {/* infos */}
-        <div className="flex gap-8">
-            {/* inner info */}
-            <div className="flex flex-col gap-5">
-                <div>
+        <div className="flex gap-5">
+            <div className='w-14 h-12 rounded-xl bg-red-600' />
+            <div>
                 <h4 className="text-gray-500">Business Name</h4>
-                <p>Aderomke Balogun</p>
-                </div>
+                <p>{businessName}</p>
+            </div>
+        </div>
+        
+        <div className="flex flex-col md:flex-row gap-6">
+
+            <div className="flex gap-5 justify-between">
                 <div>
                     <h4 className="text-gray-500">Business phone</h4>
-                    <p>0815 4168 554</p>
+                    <p>{business_phone}</p>
                 </div>
                 <div>
                     <h4 className="text-gray-500">Business email</h4>
-                    <p>Doc Submitted</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Physical address</h4>
-                    <p>6 Chevron drive, Lekki, Lagos</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Average rating </h4>
-                    <p>4.5</p>
+                    <p>{email}</p>
                 </div>
             </div>
 
-            {/* inner info */}
-            <div className="flex flex-col gap-5">
+            <div className="flex justify-between">
                 <div>
-                    <h4 className="text-gray-500">Business description</h4>
-                    <p className="leading-snug">Sales of party items and accessories for birthdays <br /> and official events. We setup the birthdays
-                    <br /> and official events. We setup the location and <br />
-                    resources foreverything about your party</p>
+                    <h4 className="text-gray-500">Physical address</h4>
+                    <p>{city}, {state}</p>
                 </div>
+            </div>
+
+            <div>
+                <h4 className="text-gray-500">Business description</h4>
+                <p className="leading-snug">Sales of party items and accessories for birthdays <br /> and official events. We setup the birthdays
+                <br /> and official events. We setup the location and <br />
+                resources foreverything about your party</p>
+            </div>
+
+            <div className="flex flex-col gap-5">
+                
                 <div>
                     <h4 className="text-gray-500">Twitter</h4>
                     <p>@Cassiechipsng</p>
@@ -116,7 +113,6 @@ const Details = () => {
         
     </div>
 
-    
     </>
     )
 }

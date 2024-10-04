@@ -12,6 +12,7 @@ const Vendor = () => {
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const businessNameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null)
   const categoryRef = useRef<HTMLSelectElement>(null);
   const stateRef = useRef<HTMLSelectElement>(null);
@@ -43,6 +44,7 @@ const Vendor = () => {
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
             category: categoryRef?.current?.value,
+            businessName: businessNameRef?.current?.value,
             business_phone: phoneRef.current?.value,
             state: stateRef.current?.value,
             city: cityRef.current?.value,
@@ -54,11 +56,11 @@ const Vendor = () => {
   return (
     <form onSubmit={handleSignUp} className='flex flex-col gap-7'>
         <div className='flex flex-col'>
-      <label>Email address</label>
+      <label className='font-semibold'>Email address</label>
       <input ref={emailRef} className='rounded-full outline-none border-2 border-gray-200' type="text" placeholder="Email"/>
     </div >
     <div className='flex flex-col relative'>
-      <label>Password</label>
+      <label className='font-semibold'>Password</label>
       <input ref={passwordRef} className=' rounded-full outline-none border-2 border-gray-200' type={showPassword ? 'text' : 'password'} placeholder="Password" />
       <span onClick={() => setShowPassword(prev => !prev)} className='absolute right-6 bottom-4'>{showPassword ? <IoMdEye /> : <IoMdEyeOff />}</span>
     </div>
@@ -77,6 +79,10 @@ const Vendor = () => {
         <option value="DJ">DJ</option>
         <option value="MC">MC</option>
       </select>
+    </div>
+    <div className="input">
+      <label className='font-semibold'>Business Name</label>
+      <input ref={businessNameRef} className='rounded-full outline-none border-2 border-gray-200' type="text" placeholder='Oliva Business'  />
     </div>
     <div className='input'>
       <label className='font-semibold'>Business Phone</label>
@@ -108,12 +114,13 @@ const Vendor = () => {
 }
 
 const REGISTER_VENDOR = gql`
-mutation register($email: String!, $password: String!, $state: String!, $city: String!, $category: String!  $business_phone: String!) {
+mutation register($email: String!, $password: String!, $state: String!, $city: String!, $category: String!, $businessName: String!, $business_phone: String!) {
 createVendor(payload: {
   email: $email,
     state: $state,
     category: $category,
     business_phone: $business_phone,
+    businessName: $businessName,
     city: $city
     password: $password
 }){
