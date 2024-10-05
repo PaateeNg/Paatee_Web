@@ -25,6 +25,7 @@ const Login = () => {
 
   const[login, {loading}] = useMutation(LOGIN_USER, {
     update(_, {data : {login : userData}}){
+      localStorage.setItem('accessToken', userData.accessToken);
       context.login(userData);
       console.log(userData)
     },

@@ -5,12 +5,24 @@ import Link from "next/link";
 import { AuthContext } from "@/lib/context/UserContext";
 
 export default function HomeBanner() {
-  const {user} = useContext(AuthContext)
+  const {user, userComplete} = useContext(AuthContext)
   console.log("User", user)
+
   // md:h-[480px] lg:h-[555px]
   return (
 
-        <div className="px-1 flex flex-col gap-3 justify-center  items-center bg-white h-[550px] sm:h-[calc(100vh-90px)] w-ful">
+        <div className="relative px-1 flex flex-col gap-3 justify-center  items-center bg-white h-[550px] sm:h-[calc(100vh-90px)] w-ful">
+          {/* usercomplete check */}
+           {userComplete &&
+             <div className="absolute top-0 left-0 bg-[#f63d6823] w-full text-center md:flex justify-between items-center p-2">
+              <p>Please give us more information</p>
+              <Link href={`/profile/${user?.userType}`} className="bg-[#F63D68] text-sm text-white px-5 py-1 rounded-lg">
+              Complete your profile
+              </Link>
+            </div>
+           }
+
+          {/* ends */}
           <div className="md:flex w-40%] p-[5px] md:bg-[#f63d6823] rounded-full gap-2" >
             <h5 className='bg-white p-[2px] text-[#F63D68] px-3 border border-[#f63d685e] w-fit m-auto mb-2 md:mb-0 md:border-none font-bold rounded-full text-center text-sm'>Party planning made easy </h5>
             <h5 className='text-[#F63D68] bg-[#f63d6823] px-3 w-fit m-auto font-bold rounded-full text-center text-sm'>Vendors, venue and planners all in one place</h5>

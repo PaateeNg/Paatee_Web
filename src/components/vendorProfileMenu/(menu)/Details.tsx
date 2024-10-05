@@ -1,62 +1,32 @@
-import { AuthContext } from "@/lib/context/UserContext"
-import { GET_VENDORS, GetVendorData } from "@/lib/queries/GET_VENDORS";
+import { AuthContext } from "@/lib/context/UserContext";
+import {  GET_CURRENT_VENDOR, Vendor } from "@/lib/queries/GET_CURRENT_VENDOR";
 import { useQuery } from "@apollo/client";
-import { useContext } from "react"
+import { useContext } from "react";
 
 
 
 const Details = () => {
-    const {user} = useContext(AuthContext)
-    const {data} = useQuery<GetVendorData>(GET_VENDORS);
-    console.log(user)
-    console.log(data)
+    const {setUserComplete} = useContext(AuthContext)
+    const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
+    console.log("data:", data)
 
-    const userDetails = data?.getAllVendor.find(vendor => (
-        vendor.email === user.email
-    ));
+      // Extract vendor details from the query response
+  const vendor = data?.currentVendor;
 
-    console.log(userDetails);
-    const {email, business_phone, businessName, category, city, state} = userDetails as any;
+  if (!vendor) {
+    return <p>No vendor details found.</p>;
+  }
+
+  const { email,firstName, lastName, business_phone, businessName, city, state } = vendor as any;
+
+if(!email || !firstName ||  !lastName|| !business_phone || !businessName || !city || !state ){
+    setUserComplete(false)
+}
+
 
     
     return (
     <>
-    {/* <div className="flex flex-col gap-3">
-        <h3 className="font-extrabold ">Personal details</h3>
-        <div className="flex gap-8">
-            <div className="flex flex-col gap-5"> 
-                <div>
-                    <h4 className="text-gray-500">Vendor Name</h4>
-                    <p>Aderomke Balogun</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Phone number</h4>
-                    <p>0815 4168 554</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Utility bill</h4>
-                    <p>Doc Submitted</p>
-                </div>
-            </div>
-            <div className="flex flex-col gap-5">
-                <div>
-                    <h4 className="text-gray-500">Email Address</h4>
-                    <p>{email}</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Date Joined</h4>
-                    <p>6 months ago</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Valid ID</h4>
-                    <p>Doc Submitted</p>
-                </div>
-            </div>
-        </div>
-    </div> */}
-
-    
-
     <div className="flex flex-col gap-3">
         <div className="flex gap-5">
             <div className='w-14 h-12 rounded-xl bg-red-600' />
@@ -68,7 +38,7 @@ const Details = () => {
         
         <div className="flex flex-col md:flex-row gap-6">
 
-            <div className="flex gap-5 justify-between">
+            <div className="flex flex-col gap-8">
                 <div>
                     <h4 className="text-gray-500">Business phone</h4>
                     <p>{business_phone}</p>
@@ -77,14 +47,15 @@ const Details = () => {
                     <h4 className="text-gray-500">Business email</h4>
                     <p>{email}</p>
                 </div>
-            </div>
-
-            <div className="flex justify-between">
+                <div className="flex justify-between">
                 <div>
                     <h4 className="text-gray-500">Physical address</h4>
                     <p>{city}, {state}</p>
                 </div>
             </div>
+            </div>
+
+            
 
             <div>
                 <h4 className="text-gray-500">Business description</h4>
@@ -96,7 +67,7 @@ const Details = () => {
             <div className="flex flex-col gap-5">
                 
                 <div>
-                    <h4 className="text-gray-500">Twitter</h4>
+                    <h4 className="text-gray-500">X</h4>
                     <p>@Cassiechipsng</p>
                 </div>
                 <div>
@@ -112,6 +83,8 @@ const Details = () => {
         </div>
         
     </div>
+
+ 
 
     </>
     )

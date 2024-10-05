@@ -20,6 +20,7 @@ import Logo from '../logo/Logo';
 
 export default function NavBar() {
   const { user } = useContext(AuthContext);
+  console.log(user)
   const [click, setClick] = useState<number | null>(null);
   const [dropDown, setDropDown] = useState(false);
   const context = useContext(NavbarContext);
@@ -83,7 +84,7 @@ export default function NavBar() {
           {/* Icons with Navs and Button for Get Started */}
           {user ? (
             <div className="hidden md:flex md:items-center md:justify-end text-2xl gap-5">
-              <Link href={`/profile/${user.userType}`}>
+              <Link href={`/profile/${user?.userType}`}>
                 <FaRegUser />
               </Link>
               <RiSearch2Line />

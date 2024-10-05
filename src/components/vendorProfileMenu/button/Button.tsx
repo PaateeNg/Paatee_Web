@@ -15,7 +15,7 @@ const Button = ({activeMenu, setShowBackgroundComponent} : Menu ) => {
 
   const handleClick = () => {
     if(activeMenu === "menu1"){
-      console.log("Details")
+      setShowBackgroundComponent(true)
     }
     if(activeMenu === "menu2"){
       setShowBackgroundComponent(true)

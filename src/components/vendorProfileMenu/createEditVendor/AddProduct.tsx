@@ -149,9 +149,9 @@ const PRODUCT = gql`
   mutation(
     $productName: String!
     $productDescription: String!
-    $price: Float!
+    $price: Number!
     $category: String!
-    $quantity: Int!
+    $quantity: Number!
   ) {
     create(
       payload: {
