@@ -26,8 +26,7 @@ export default function NavBar() {
   const pathName = usePathname();
 
   const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
-  const user = data?.currentVendor;
-  console.log(user)
+  const user = data?.currentVendor as any;
 
   const [open, setOpen] = useState(false);
 

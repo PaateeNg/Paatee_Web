@@ -3,12 +3,23 @@ import { useContext } from "react";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
 import Link from "next/link";
 import { AuthContext } from "@/lib/context/UserContext";
+import { useQuery } from "@apollo/client";
+import { GET_CURRENT_VENDOR, Vendor } from "@/lib/queries/GET_CURRENT_VENDOR";
 
 export default function HomeBanner() {
-  const {user, userComplete} = useContext(AuthContext)
-  console.log("User", user)
+  //placed the complete profile there 
+  const {userComplete, setUserComplete} = useContext(AuthContext)
 
-  // md:h-[480px] lg:h-[555px]
+  //retrive current user
+  const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
+  const user = data?.currentVendor as any
+
+  const { email,firstName, lastName, business_phone, businessName, city, state } = user as any;
+
+  if(!email || !firstName ||  !lastName || !business_phone || !businessName || !city || !state ){
+      setUserComplete(true)
+  }
+
   return (
 
         <div className="relative px-1 flex flex-col gap-3 justify-center  items-center bg-white h-[550px] sm:h-[calc(100vh-90px)] w-ful">
