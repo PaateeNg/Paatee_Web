@@ -18,7 +18,8 @@ const VendorProfileMenu = () => {
         return activeItem ? activeItem.content : null;
     }
 
-    return <div className='flex flex-col border border-gray-200 sshadow-lg rounded-xl'>
+    return(
+        <div className='flex flex-col border border-gray-200 shadow-lg rounded-xl'>
         { showBackgroundComponent && <BackgroundComponent activeMenu={activeMenu} setShowBackgroundComponent={setShowBackgroundComponent}/> }
        
         {/* Menu */}
@@ -42,6 +43,7 @@ const VendorProfileMenu = () => {
             </div>  
         </div>
     </div>
+    )
 }
 
 export default VendorProfileMenu;

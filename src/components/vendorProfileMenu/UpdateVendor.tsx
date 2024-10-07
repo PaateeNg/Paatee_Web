@@ -3,13 +3,16 @@
 import { gql, useMutation, ApolloError } from '@apollo/client';
 import React, { useRef, useState } from 'react';
 
+import {  GET_CURRENT_VENDOR, Vendor } from "@/lib/queries/GET_CURRENT_VENDOR";
+import { useQuery } from "@apollo/client";
+
 type Menu = {
   setShowBackgroundComponent: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
   const FirstNameRef = useRef<HTMLInputElement>(null);
   const LastNameRef = useRef<HTMLInputElement>(null);
@@ -17,43 +20,71 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const BusinessPhoneRef = useRef<HTMLInputElement>(null); 
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const addressReff = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLInputElement>(null);
+  const InstagramRef = useRef<HTMLInputElement>(null);
+  const XRef = useRef<HTMLInputElement>(null);
 
-//   const [addProduct, { loading }] = useMutation(PRODUCT, {
-//     update(_, result) {
-//       console.log(result);
-//     },
-//     onCompleted() {
-//       setShowBackgroundComponent(false);
-//     },
-//     onError(err: ApolloError) {
-//       const error = err?.graphQLErrors?.[0]?.message || 'An unknown error occurred';
-//       console.log("Error:", error);
-//       setError(error);
-//     },
-//   });
+  const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
+  console.log( data?.currentVendor)
+
+    // Extract vendor details from the query response
+const vendor = data?.currentVendor;
+
+if (!vendor) {
+  return <p>No vendor details found.</p>;
+}
+
+const { email,firstName, lastName, business_phone, businessName, x, instagram, description, location } = vendor as any;
+
+  const [updateVendor, { loading }] = useMutation(UPDATE, {
+    update(_, result) {
+      console.log("result:" ,result);
+    },
+    onCompleted() {
+      setShowBackgroundComponent(false);
+    },
+    onError(err: ApolloError) {
+      const error = err?.graphQLErrors?.[0]?.message || 'An unknown error occurred';
+      console.log("Error:", error);
+      setError(error);
+    },
+  });
 
   const submitProduct = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // const productName = productNameRef.current?.value;
-    // const productDescription = descriptionRef.current?.value;
-    // const price = parseFloat(priceRef.current?.value || '0');
-    // const category = categoryRef.current?.value;
-    // const quantity = parseInt(quantityRef.current?.value || '0');
+    const email = emailRef?.current?.value;
+    const firstName = FirstNameRef?.current?.value;
+    const lastName = LastNameRef?.current?.value;
+    const business_phone = BusinessPhoneRef?.current?.value;
+    const businessName = BusinessNameRef?.current?.value;
+    const location = locationRef?.current?.value;
+    const x = XRef?.current?.value;
+    const instagram = InstagramRef?.current?.value;
+    const description = descriptionRef?.current?.value;
 
-    // Logging the values for debugging
-    // console.log({ productName, productDescription, price, category, quantity });
 
-    // addProduct({
-    //   variables: {
-    //     productName,
-    //     productDescription,
-    //     price,
-    //     category,
-    //     quantity,
-    //   },
-    // });
+        // Logging the values for debugging
+    console.log({email, firstName, lastName, business_phone, businessName, location, x, instagram, description})
+
+
+
+
+   
+
+    updateVendor({
+      variables: {
+        email,
+        firstName,
+        lastName,
+        business_phone,
+        businessName,
+        location,
+        x,
+        instagram,
+        description 
+      },
+    });
   };
 
   const handleCloseAdd = () => {
@@ -80,18 +111,20 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
           <div>
             <label>First name</label>
             <input
+            value={firstName}
               ref={FirstNameRef}
               type="text"
-              placeholder="Product name"
+              placeholder="Enter First Name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
           <div>
             <label>Last name</label>
             <input
+            value={lastName}
               ref={LastNameRef}
-              type="email"
-              placeholder="Product name"
+              type="test"
+              placeholder="Enter Last Name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
@@ -100,18 +133,20 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
           <div>
             <label>Business name</label>
             <input
+            value={businessName}
               ref={BusinessNameRef}
               type="text"
-              placeholder="Product name"
+              placeholder="Business name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
           <div>
             <label>Business email</label>
             <input
+            value={email}
               ref={emailRef}
               type="email"
-              placeholder="Product name"
+              placeholder="Business name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
@@ -120,7 +155,8 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
           <div className="flex flex-col">
             <label>Physical address</label>
             <input
-              ref={addressReff}
+            value={location}
+              ref={locationRef}
               type="text"
               placeholder="Business address"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -129,6 +165,7 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
           <div>
             <label>Business Phone</label>
             <input
+            value={business_phone}
               ref={BusinessPhoneRef}
               type="number"
               placeholder="Business Phone"
@@ -140,7 +177,8 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
           <div className="flex flex-col">
             <label>X handle</label>
             <input
-              ref={addressReff}
+            value={x}
+              ref={XRef}
               type="text"
               placeholder="X handle"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -149,7 +187,8 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
           <div>
             <label>Instagram handle</label>
             <input
-              ref={BusinessPhoneRef}
+            value={instagram}
+              ref={InstagramRef}
               type="text"
               placeholder=" Instagram handle"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -159,6 +198,7 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
         <div className="flex flex-col">
           <label>Business Description</label>
           <textarea
+          value={description}
             ref={descriptionRef}
             placeholder="Enter a description for your product"
             className="p-2 mt-2 border-gray-400 border rounded-md outline-none"
@@ -176,29 +216,33 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
   );
 };
 
-const PRODUCT = gql`
+const UPDATE = gql`
   mutation(
-    $productName: String!
-    $productDescription: String!
-    $price: Number!
-    $category: String!
-    $quantity: Number!
+    $firstName: String!
+    $lastName: String!
+    $x: String!
+    $instagram: String!
+    $location: String!
   ) {
     create(
       payload: {
-        productName: $productName
-        productDescription: $productDescription
-        price: $price
-        category: $category
-        quantity: $quantity
+        firstName: $firstName
+        lastName: $lastName
+        x: $x
+        instagram: $instagram
+        location: $location
       }
     ) {
-      makeBy
-      price
-      productName
-      quantity
+      firstName
+      lastName
+      email
+      x
+      instagram
+      business_phone
+      businessName
+      location
       category
-      date_added
+      userType
     }
   }
 `;

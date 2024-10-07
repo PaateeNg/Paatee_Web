@@ -10,6 +10,7 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
   // Retrieve the token from localStorage (or other storage mechanism)
   const token = localStorage.getItem('accessToken'); // Replace with your actual token retrieval logic
+  console.log("tokon:" ,token)
 
   return {
     headers: {

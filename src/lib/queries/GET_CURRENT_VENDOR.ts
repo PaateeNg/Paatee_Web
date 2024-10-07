@@ -10,6 +10,10 @@ query{
         lastName
         businessName
         business_phone
+        business_description
+        location
+        x
+        instagram
         productMenu
         state
         city
@@ -22,17 +26,21 @@ query{
 
 export interface CurrentVendor {
     _id: string;
-    email: string;
-    role: string;
-    firstName: string;
-    lastName: string;
-    businessName: string;
-    business_phone: string;
-    productMenu: any;
-    state: string;
-    city: string;
-    createdAt:any
-    userType: string;
+    email?: string;
+    role?: string;
+    firstName?: string;
+    lastName?: string;
+    businessName?: string;
+    business_phone?: string;
+    business_description?: string;
+    location?: string;
+    x?: string;
+    instagram?: string;
+    productMenu?: any;
+    state?: string;
+    city?: string;
+    createdAt?:any
+    userType?: string;
 }
 
 

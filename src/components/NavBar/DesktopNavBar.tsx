@@ -14,17 +14,20 @@ import PrimaryBtn from "../Buttons/PrimaryBtn";
 import { NavbarContext } from "@/lib/context/NavbarContext";
 import { usePathname } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { AuthContext } from "@/lib/context/UserContext";
 import Logo from '../logo/Logo';
+import { GET_CURRENT_VENDOR, Vendor } from '@/lib/queries/GET_CURRENT_VENDOR';
+import { useQuery } from '@apollo/client';
 
 
 export default function NavBar() {
-  const { user } = useContext(AuthContext);
-  console.log(user)
   const [click, setClick] = useState<number | null>(null);
   const [dropDown, setDropDown] = useState(false);
   const context = useContext(NavbarContext);
   const pathName = usePathname();
+
+  const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
+  const user = data?.currentVendor;
+  console.log(user)
 
   const [open, setOpen] = useState(false);
 
@@ -98,8 +101,8 @@ export default function NavBar() {
           )}
 
             <div>
-            <GiHamburgerMenu onClick={() => setOpen(!open)} className=" relative  z-10 text-4xl md:hidden  text-red-500"  />
-              <div className={`md:hidden absolute top-0 right-0 flex flex-col justify-center gap-8 items-center text-white bg-black w-[200px] h-[80vh] transition-all duration-500 ease-in-out ${open ? 'right-0' : 'right-[-200px]'} `}>
+            <GiHamburgerMenu onClick={() => setOpen(!open)} className=" relative  z-20 text-4xl md:hidden  text-red-500"  />
+              <div className={`md:hidden fixed z-10 top-0 right-0 flex flex-col justify-center gap-8 items-center text-white bg-black w-[200px] h-[80vh] transition-all duration-500 ease-in-out ${open ? 'translate-x-0' : 'translate-x-full'} `}>
               {middleMenu.map((menu) => (
                  
                 <Link

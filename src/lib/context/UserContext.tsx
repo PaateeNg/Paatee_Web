@@ -1,6 +1,6 @@
 'use client'
 
-import React, { ReactElement, createContext, useReducer, useEffect, useState } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import {jwtDecode} from "jwt-decode"; // Ensure to import correctly
 
 interface AuthContextType {
@@ -51,6 +51,8 @@ const reducer = (state: State, action: { type: string; payload?: any }) => {
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+   
+
     const login = (userData: { accessToken: string }) => {
         localStorage.setItem('accessToken', userData.accessToken);
         try {
@@ -76,7 +78,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
                 const decodedUser = jwtDecode<CustomJwtPayload>(token);
                 dispatch({
                     type: 'LOGIN',
-                    payload: { accessToken: token, ...decodedUser }, // Ensure payload includes access token
+                    payload: {accessToken: token, ...decodedUser }, // Ensure payload includes access token
                 });
             } catch (error) {
                 console.error('Failed to decode JWT on initial load:', error);
