@@ -1,6 +1,7 @@
 'use client';
 
 import { gql, useMutation, ApolloError } from '@apollo/client';
+import { IoClose } from "react-icons/io5";
 import React, { useRef, useState } from 'react';
 
 type Menu = {
@@ -61,7 +62,7 @@ const AddProduct = ({ setShowBackgroundComponent }: Menu) => {
     <form onSubmit={submitProduct} className="border max-w-md flex flex-col gap-5 py-5 px-2 rounded-xl bg-white">
       <div className="flex justify-between items-center">
         <h3 className="text-lg">Create new product</h3>
-        <div onClick={handleCloseAdd}>X</div>
+        <div onClick={handleCloseAdd} className='text-xl'><IoClose /> </div>
       </div>
 
       <div className="text-center bg-red-200 p-7">

@@ -14,11 +14,14 @@ export default function HomeBanner() {
   const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
   const user = data?.currentVendor as any
 
-  const { email,firstName, lastName, business_phone, businessName, city, state } = user as any;
+  if(data){
+    const { email,firstName, lastName, business_phone, businessName, city, state } = user as any;
 
   if(!email || !firstName ||  !lastName || !business_phone || !businessName || !city || !state ){
       setUserComplete(true)
   }
+  }
+  
 
   return (
 

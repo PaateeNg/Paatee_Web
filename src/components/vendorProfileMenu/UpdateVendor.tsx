@@ -1,6 +1,7 @@
 'use client';
 
 import { gql, useMutation, ApolloError } from '@apollo/client';
+import { IoClose } from "react-icons/io5";
 import React, { useRef, useState } from 'react';
 
 import {  GET_CURRENT_VENDOR, Vendor } from "@/lib/queries/GET_CURRENT_VENDOR";
@@ -14,15 +15,15 @@ const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
   const [error, setError] = useState('');
   // const [loading, setLoading] = useState(false)
 
-  const FirstNameRef = useRef<HTMLInputElement>(null);
-  const LastNameRef = useRef<HTMLInputElement>(null);
-  const BusinessNameRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const businessNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const BusinessPhoneRef = useRef<HTMLInputElement>(null); 
+  const businessPhoneRef = useRef<HTMLInputElement>(null); 
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
-  const InstagramRef = useRef<HTMLInputElement>(null);
-  const XRef = useRef<HTMLInputElement>(null);
+  const instagramRef = useRef<HTMLInputElement>(null);
+  const xRef = useRef<HTMLInputElement>(null);
 
   const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
   console.log( data?.currentVendor)
@@ -54,35 +55,30 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
     e.preventDefault();
 
     const email = emailRef?.current?.value;
-    const firstName = FirstNameRef?.current?.value;
-    const lastName = LastNameRef?.current?.value;
-    const business_phone = BusinessPhoneRef?.current?.value;
-    const businessName = BusinessNameRef?.current?.value;
+    const firstName = firstNameRef?.current?.value;
+    const lastName = lastNameRef?.current?.value;
+    const business_phone = businessPhoneRef?.current?.value;
+    const businessName = businessNameRef?.current?.value;
     const location = locationRef?.current?.value;
-    const x = XRef?.current?.value;
-    const instagram = InstagramRef?.current?.value;
+    const x = xRef?.current?.value;
+    const instagram = instagramRef?.current?.value;
     const description = descriptionRef?.current?.value;
 
 
         // Logging the values for debugging
-    console.log({email, firstName, lastName, business_phone, businessName, location, x, instagram, description})
-
-
-
-
-   
+    console.log("Data:", {email, firstName, lastName, business_phone, businessName, location, x, instagram, description})
 
     updateVendor({
       variables: {
-        email,
+        // email,
         firstName,
         lastName,
-        business_phone,
-        businessName,
+        // business_phone,
+        // businessName,
         location,
         x,
         instagram,
-        description 
+        // description 
       },
     });
   };
@@ -95,7 +91,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
     <form onSubmit={submitProduct} className="border max-w-md flex flex-col gap-5 py-5 px-2 rounded-xl bg-white">
       <div className="flex justify-between items-center">
         <h3 className="text-lg">Edit profile</h3>
-        <div onClick={handleCloseAdd}>X</div>
+        <div onClick={handleCloseAdd} className='text-xl'><IoClose /></div>
       </div>
 
       <div className="text-center bg-red-200 p-7">
@@ -112,7 +108,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
             <label>First name</label>
             <input
             value={firstName}
-              ref={FirstNameRef}
+              ref={firstNameRef}
               type="text"
               placeholder="Enter First Name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -122,7 +118,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
             <label>Last name</label>
             <input
             value={lastName}
-              ref={LastNameRef}
+              ref={lastNameRef}
               type="test"
               placeholder="Enter Last Name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -134,7 +130,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
             <label>Business name</label>
             <input
             value={businessName}
-              ref={BusinessNameRef}
+              ref={businessNameRef}
               type="text"
               placeholder="Business name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -166,7 +162,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
             <label>Business Phone</label>
             <input
             value={business_phone}
-              ref={BusinessPhoneRef}
+              ref={businessPhoneRef}
               type="number"
               placeholder="Business Phone"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -178,7 +174,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
             <label>X handle</label>
             <input
             value={x}
-              ref={XRef}
+              ref={xRef}
               type="text"
               placeholder="X handle"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -188,7 +184,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
             <label>Instagram handle</label>
             <input
             value={instagram}
-              ref={InstagramRef}
+              ref={instagramRef}
               type="text"
               placeholder=" Instagram handle"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -217,13 +213,7 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
 };
 
 const UPDATE = gql`
-  mutation(
-    $firstName: String!
-    $lastName: String!
-    $x: String!
-    $instagram: String!
-    $location: String!
-  ) {
+  mutation updateVendor($firstName: String!, $lastName: String!, $x: String!, $instagram: String!, $location: String!) {
     create(
       payload: {
         firstName: $firstName
