@@ -9,7 +9,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoCartOutline } from "react-icons/io5";
 import { middleMenu } from "./NavBarMenu/NavMenu";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
 import { NavbarContext } from "@/lib/context/NavbarContext";
 import { usePathname } from "next/navigation";
@@ -17,6 +17,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Logo from '../logo/Logo';
 import { GET_CURRENT_VENDOR, Vendor } from '@/lib/queries/GET_CURRENT_VENDOR';
 import { useQuery } from '@apollo/client';
+import { signOut, useSession } from 'next-auth/react';
 
 
 export default function NavBar() {
@@ -24,9 +25,23 @@ export default function NavBar() {
   const [dropDown, setDropDown] = useState(false);
   const context = useContext(NavbarContext);
   const pathName = usePathname();
+  const [user, setUser] = useState() as any
 
-  const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
-  const user = data?.currentVendor as any;
+  // const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
+  // const user = data?.currentVendor as any;
+
+ 
+  const { data: session } = useSession();
+
+  console.log('session', session?.user.userType)
+  // Set user state once on session change
+  useEffect(() => {
+    if (session?.user) {
+      setUser(session.user);
+    } else {
+      setUser(null);
+    }
+  }, [session]);
 
   const [open, setOpen] = useState(false);
 
@@ -124,6 +139,7 @@ export default function NavBar() {
                 </Link>
               ))}
                              {user ? (
+           <>
             <div className="flex md:flex md:items-center md:justify-end text-2xl gap-5">
               <Link href={`/profile/${user.userType}`}>
                 <FaRegUser />
@@ -132,6 +148,12 @@ export default function NavBar() {
               <FaRegHeart />
               <IoCartOutline />
             </div>
+              <button
+              onClick={() => signOut()}
+              >SignOut</button>
+          
+           </>
+            
           ) : (
             <Link className=" w-[70%] md:block" href="/sign-up">
               <PrimaryBtn center={true} text="Join us" />

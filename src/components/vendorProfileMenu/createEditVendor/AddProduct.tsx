@@ -1,57 +1,85 @@
 'use client';
 
-import { gql, useMutation, ApolloError } from '@apollo/client';
+// import { gql, useMutation, ApolloError } from '@apollo/client';
 import { IoClose } from "react-icons/io5";
 import React, { useRef, useState } from 'react';
+import { useVendor } from "@/lib/context/VendorContext";
 
 type Menu = {
   setShowBackgroundComponent: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const AddProduct = ({ setShowBackgroundComponent }: Menu) => {
+  const { vendor } = useVendor();
+  const businessName = vendor?.businessName;
   const [error, setError] = useState('');
 
+  const imageRef = useRef<HTMLInputElement>(null); 
   const productNameRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const quantityRef = useRef<HTMLInputElement>(null);
+  const loading = false
 
-  const [addProduct, { loading }] = useMutation(PRODUCT, {
-    update(_, result) {
-      console.log(result);
-    },
-    onCompleted() {
-      setShowBackgroundComponent(false);
-    },
-    onError(err: ApolloError) {
-      const error = err?.graphQLErrors?.[0]?.message || 'An unknown error occurred';
-      console.log("Error:", error);
-      setError(error);
-    },
-  });
+  // const [addProduct, { loading }] = useMutation(PRODUCT, {
+  //   update(_, result) {
+  //     console.log(result);
+  //   },
+  //   onCompleted() {
+  //     setShowBackgroundComponent(false);
+  //   },
+  //   onError(err: ApolloError) {
+  //     const error = err?.graphQLErrors?.[0]?.message || 'An unknown error occurred';
+  //     console.log("Error:", error);
+  //     setError(error);
+  //   },
+  // });
 
-  const submitProduct = (e: React.FormEvent) => {
+  const submitProduct = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const images = imageRef?.current?.files;
     const productName = productNameRef.current?.value;
-    const productDescription = descriptionRef.current?.value;
+    const description = descriptionRef.current?.value;
     const price = parseFloat(priceRef.current?.value || '0');
     const category = categoryRef.current?.value;
     const quantity = parseInt(quantityRef.current?.value || '0');
 
     // Logging the values for debugging
-    console.log({ productName, productDescription, price, category, quantity });
+    console.log({ productName, images, description, price, category, quantity, businessName });
 
-    addProduct({
-      variables: {
-        productName,
-        productDescription,
-        price,
-        category,
-        quantity,
-      },
-    });
+
+    try{
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productName,
+          images,
+          category,
+          description,
+          price,
+          quantity,
+          rating: null,
+          businessName
+        })
+      })
+    } catch(err:any) {
+      console.error("Error", err)
+    }
+
+    // addProduct({
+    //   variables: {
+    //     productName,
+    //     productDescription,
+    //     price,
+    //     category,
+    //     quantity,
+    //   },
+    // });
   };
 
   const handleCloseAdd = () => {
@@ -68,6 +96,14 @@ const AddProduct = ({ setShowBackgroundComponent }: Menu) => {
       <div className="text-center bg-red-200 p-7">
         <div>icon</div>
         <p>Upload image</p>
+        <input 
+          name='images' 
+          type="file" 
+          accept='.jpg, .png, .jpeg'
+          ref={imageRef}
+          multiple
+          required
+      />
         <p>
           Drag and drop a file or <span>choose file</span>
         </p>
@@ -146,31 +182,31 @@ const AddProduct = ({ setShowBackgroundComponent }: Menu) => {
   );
 };
 
-const PRODUCT = gql`
-  mutation(
-    $productName: String!
-    $productDescription: String!
-    $price: Number!
-    $category: String!
-    $quantity: Number!
-  ) {
-    create(
-      payload: {
-        productName: $productName
-        productDescription: $productDescription
-        price: $price
-        category: $category
-        quantity: $quantity
-      }
-    ) {
-      makeBy
-      price
-      productName
-      quantity
-      category
-      date_added
-    }
-  }
-`;
+// const PRODUCT = gql`
+//   mutation(
+//     $productName: String!
+//     $productDescription: String!
+//     $price: Number!
+//     $category: String!
+//     $quantity: Number!
+//   ) {
+//     create(
+//       payload: {
+//         productName: $productName
+//         productDescription: $productDescription
+//         price: $price
+//         category: $category
+//         quantity: $quantity
+//       }
+//     ) {
+//       makeBy
+//       price
+//       productName
+//       quantity
+//       category
+//       date_added
+//     }
+//   }
+// `;
 
 export default AddProduct;

@@ -14,33 +14,72 @@ const Customer = () => {
     const [showPassword, setShowPassword] = useState(false);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+    const checkboxRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState('');
 
-    const email = emailRef?.current?.value;
-    const password = passwordRef?.current?.value
-    
-    const [addUser, {loading }] = useMutation(REGISTER_CUSTOMER, {
-      onCompleted: () => {
-        route.push('/sign-in');  // Redirect to sign-in after successful registration
-      },
-      update(_, result){
-        console.log(result)
-      },
-      onError(err){
-        //i'll provide error later
-      },
-      
-    })
+    const loading = false
 
-    const handleSignUp = (e:any) => {
+    const email = emailRef?.current?.value;
+    const password = passwordRef?.current?.value;
+    const userType = 'customer';
+    const terms = checkboxRef?.current?.checked
+    
+    // const [addUser, {loading }] = useMutation(REGISTER_CUSTOMER, {
+    //   onCompleted: () => {
+    //     route.push('/sign-in');  // Redirect to sign-in after successful registration
+    //   },
+    //   update(_, result){
+    //     console.log(result)
+    //   },
+    //   onError(err){
+    //     //i'll provide error later
+    //   },
+      
+    // })
+
+    const handleSignUp = async (e:any) => {
         e.preventDefault();
 
-        addUser({
-          variables: {
-            email: email,
-            password: password
+        if (!terms) {
+          setError('Please accept the terms and conditions')
+          return
+        }
+
+        console.log(terms)
+        
+        try{
+          const res = await fetch('/api/user', {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email, 
+              password,
+              userType,
+              terms
+            })
+          })
+
+          if(res.ok){
+            console.log('Success')
+            route.push('/sign-in');
           }
-        });
+          if(res.status === 400){
+            setError("Email is already in use")
+          }
+        } catch (err:any) {
+          console.log(err)
+          setError(err.message)
+        }
+
+        
+        // addUser({
+        //   variables: {
+        //     email: email,
+        //     password: password
+        //   }
+        // });
       }
   return (
     <form onSubmit={handleSignUp} className='flex flex-col gap-7'>
@@ -55,8 +94,9 @@ const Customer = () => {
     </div>
     <span className='font-light text-xs -mt-7 text-gray-600'>Must be at least8 characters</span>
     <div>
-    <input type="checkbox" className='mr-2' /><span className='border-b border-gray-400'>I agree with the terms and conditions</span>
+    <input ref={checkboxRef} type="checkbox" className='mr-2' /><span className='border-b border-gray-400'>I agree with the terms and conditions</span>
     </div>
+    <p className='text-red-500 -mb-10 text-xl'>{error && error}</p>
     <AuthBtn text={`${loading ? 'lplease wait...' : 'register'}`}/>
   </form>
   )

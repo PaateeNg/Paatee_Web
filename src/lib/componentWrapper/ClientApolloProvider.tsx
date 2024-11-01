@@ -1,15 +1,15 @@
-"use client"
+// "use client"
 
-import { ApolloProvider } from "@apollo/client"
-import client from '../apolloClients'
+// import { ApolloProvider } from "@apollo/client"
+// import client from '../apolloClients'
 
-const ClientApolloProvider = ({children} : {children: React.ReactNode}) => {
-  return (
-    <ApolloProvider client={client}>
-        {children}
-    </ApolloProvider>
-  )
-}
+// const ClientApolloProvider = ({children} : {children: React.ReactNode}) => {
+//   return (
+//     <ApolloProvider client={client}>
+//         {children}
+//     </ApolloProvider>
+//   )
+// }
 
-export default ClientApolloProvider
+// export default ClientApolloProvider
 

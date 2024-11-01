@@ -1,11 +1,8 @@
 'use client';
 
-import { gql, useMutation, ApolloError } from '@apollo/client';
 import { IoClose } from "react-icons/io5";
-import React, { useRef, useState } from 'react';
-
-import {  GET_CURRENT_VENDOR, Vendor } from "@/lib/queries/GET_CURRENT_VENDOR";
-import { useQuery } from "@apollo/client";
+import React, { useState, useEffect } from 'react';
+import { useVendor } from "@/lib/context/VendorContext";
 
 type Menu = {
   setShowBackgroundComponent: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,74 +10,78 @@ type Menu = {
 
 const UpdateVendor = ({ setShowBackgroundComponent }: Menu) => {
   const [error, setError] = useState('');
-  // const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const { vendor } = useVendor();
 
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const businessNameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const businessPhoneRef = useRef<HTMLInputElement>(null); 
-  const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const locationRef = useRef<HTMLInputElement>(null);
-  const instagramRef = useRef<HTMLInputElement>(null);
-  const xRef = useRef<HTMLInputElement>(null);
-
-  const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
-  console.log( data?.currentVendor)
-
-    // Extract vendor details from the query response
-const vendor = data?.currentVendor;
-
-if (!vendor) {
-  return <p>No vendor details found.</p>;
-}
-
-const { email,firstName, lastName, business_phone, businessName, x, instagram, description, location } = vendor as any;
-
-  const [updateVendor, { loading }] = useMutation(UPDATE, {
-    update(_, result) {
-      console.log("result:" ,result);
-    },
-    onCompleted() {
-      setShowBackgroundComponent(false);
-    },
-    onError(err: ApolloError) {
-      const error = err?.graphQLErrors?.[0]?.message || 'An unknown error occurred';
-      console.log("Error:", error);
-      setError(error);
-    },
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    businessName: '',
+    phone: '',
+    city: '',
+    state: '',
+    description: '',
+    ig: '',
+    x: '',
   });
 
-  const submitProduct = (e: React.FormEvent) => {
+  // Populate formData with vendor details on initial load
+  useEffect(() => {
+    if (vendor) {
+      setFormData({
+        firstName: vendor.firstName || '',
+        lastName: vendor.lastName || '',
+        email: vendor.email || '',
+        businessName: vendor.businessName || '',
+        phone: vendor.phone || '',
+        city: vendor.city || '',
+        state: vendor.state || '',
+        description: vendor.description || '',
+        ig: vendor.ig || '',
+        x: vendor.x || '',
+      });
+    }
+  }, [vendor]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const email = emailRef?.current?.value;
-    const firstName = firstNameRef?.current?.value;
-    const lastName = lastNameRef?.current?.value;
-    const business_phone = businessPhoneRef?.current?.value;
-    const businessName = businessNameRef?.current?.value;
-    const location = locationRef?.current?.value;
-    const x = xRef?.current?.value;
-    const instagram = instagramRef?.current?.value;
-    const description = descriptionRef?.current?.value;
+    setLoading(true);
+    setError(''); // Reset error state before new request
 
+    console.log("Data:", formData);
 
-        // Logging the values for debugging
-    console.log("Data:", {email, firstName, lastName, business_phone, businessName, location, x, instagram, description})
+    try {
+      const res = await fetch(`/api/user/${vendor?._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json", // Corrected typo here
+        },
+        body: JSON.stringify(formData),
+      });
 
-    updateVendor({
-      variables: {
-        // email,
-        firstName,
-        lastName,
-        // business_phone,
-        // businessName,
-        location,
-        x,
-        instagram,
-        // description 
-      },
-    });
+      if (!res.ok) {
+        throw new Error('Failed to update user data');
+      }
+      
+      const data = await res.json();
+      console.log(data);
+      // Optionally, you could provide feedback to the user here
+    } catch (error) {
+      console.error('Error updating user data:', error);
+      setError('An error occurred while updating your profile. Please try again.'); // Set error message for the user
+    }
+
+    setLoading(false);
   };
 
   const handleCloseAdd = () => {
@@ -88,27 +89,26 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
   };
 
   return (
-    <form onSubmit={submitProduct} className="border max-w-md flex flex-col gap-5 py-5 px-2 rounded-xl bg-white">
+    <form onSubmit={handleUpdate} className="border max-w-md flex flex-col gap-5 py-5 px-2 rounded-xl bg-white">
       <div className="flex justify-between items-center">
         <h3 className="text-lg">Edit profile</h3>
-        <div onClick={handleCloseAdd} className='text-xl'><IoClose /></div>
+        <div onClick={handleCloseAdd} className='text-xl cursor-pointer'><IoClose /></div>
       </div>
 
       <div className="text-center bg-red-200 p-7">
         <div>icon</div>
         <p>Upload image</p>
-        <p>
-          Drag and drop a file or <span>choose file</span>
-        </p>
+        <p>Drag and drop a file or <span>choose file</span></p>
       </div>
 
       <div className="flex flex-col gap-5">
-      <div className="flex">
+        <div className="flex">
           <div>
             <label>First name</label>
             <input
-            value={firstName}
-              ref={firstNameRef}
+              name="firstName"
+              onChange={handleChange}
+              value={formData.firstName}
               type="text"
               placeholder="Enter First Name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -117,20 +117,23 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
           <div>
             <label>Last name</label>
             <input
-            value={lastName}
-              ref={lastNameRef}
-              type="test"
+              name="lastName"
+              onChange={handleChange}
+              value={formData.lastName}
+              type="text"
               placeholder="Enter Last Name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
         </div>
+
         <div className="flex">
           <div>
             <label>Business name</label>
             <input
-            value={businessName}
-              ref={businessNameRef}
+              name="businessName"
+              onChange={handleChange}
+              value={formData.businessName}
               type="text"
               placeholder="Business name"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -139,42 +142,37 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
           <div>
             <label>Business email</label>
             <input
-            value={email}
-              ref={emailRef}
+              name="email"
+              onChange={handleChange}
+              value={formData.email}
               type="email"
-              placeholder="Business name"
+              placeholder="Business email"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
         </div>
+
         <div className="flex">
-          <div className="flex flex-col">
-            <label>Physical address</label>
-            <input
-            value={location}
-              ref={locationRef}
-              type="text"
-              placeholder="Business address"
-              className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
-            />
-          </div>
           <div>
             <label>Business Phone</label>
             <input
-            value={business_phone}
-              ref={businessPhoneRef}
-              type="number"
+              name="phone"
+              onChange={handleChange}
+              value={formData.phone}
+              type="tel"
               placeholder="Business Phone"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
         </div>
+
         <div className="flex">
           <div className="flex flex-col">
             <label>X handle</label>
             <input
-            value={x}
-              ref={xRef}
+              name="x"
+              onChange={handleChange}
+              value={formData.x}
               type="text"
               placeholder="X handle"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
@@ -183,58 +181,36 @@ const { email,firstName, lastName, business_phone, businessName, x, instagram, d
           <div>
             <label>Instagram handle</label>
             <input
-            value={instagram}
-              ref={instagramRef}
+              name="ig"
+              onChange={handleChange}
+              value={formData.ig}
               type="text"
-              placeholder=" Instagram handle"
+              placeholder="Instagram handle"
               className="p-2 mt-2 border-gray-400 border rounded-md outline-none w-11/12"
             />
           </div>
         </div>
+
         <div className="flex flex-col">
           <label>Business Description</label>
           <textarea
-          value={description}
-            ref={descriptionRef}
-            placeholder="Enter a description for your product"
+            name="description"
+            onChange={handleChange}
+            value={formData.description}
+            placeholder="Enter a description for your business"
             className="p-2 mt-2 border-gray-400 border rounded-md outline-none"
           />
         </div>
-        
       </div>
+
       <div>
-        <p>{error && error}</p>
+        {error && <p className="text-red-500">{error}</p>}
         <button type="submit" className="bg-red-500 w-full p-2 rounded-2xl text-white">
-          {loading ? 'Adding Product...' : 'Add Product'}
+          {loading ? 'Updating Profile...' : 'Update Profile'}
         </button>
       </div>
     </form>
   );
 };
-
-const UPDATE = gql`
-  mutation updateVendor($firstName: String!, $lastName: String!, $x: String!, $instagram: String!, $location: String!) {
-    create(
-      payload: {
-        firstName: $firstName
-        lastName: $lastName
-        x: $x
-        instagram: $instagram
-        location: $location
-      }
-    ) {
-      firstName
-      lastName
-      email
-      x
-      instagram
-      business_phone
-      businessName
-      location
-      category
-      userType
-    }
-  }
-`;
 
 export default UpdateVendor;
