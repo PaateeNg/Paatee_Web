@@ -33,10 +33,10 @@ export default function Footer() {
     
     {showNavbar 
     &&
-    <footer className="relative flex flex-col gap-4 px-4 pb-4 bg-white">
+    <footer className="flex flex-col gap-4 px-4 bg-white">
       {/* first road of footer  */}
       <div className="md:flex md:justify-between md:items-center pt-10 mb-4 md:border-b border-gray-100 pb-14">
-        <div className="relative h-20 w-48">
+        <div className="relative h-16 w-48">
          <Logo/>
         </div>
         <p className=" text-[#5252a1] font-light text-xl ">
@@ -82,9 +82,9 @@ export default function Footer() {
           <FaLinkedin />
           <FaYoutube />
         </div>
-      <div>
+      <p className="pb-2">
       Copyright Buttons Technology 2024
-      </div>
+      </p>
         
       </div>
     </footer>

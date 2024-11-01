@@ -1,107 +1,122 @@
-import { AuthContext } from "@/lib/context/UserContext"
-import { GET_VENDORS, GetVendorData } from "@/lib/queries/GET_VENDORS";
-import { useQuery } from "@apollo/client";
-import { useContext } from "react"
+// import { AuthContext } from "@/lib/context/UserContext";
+// import {  GET_CURRENT_VENDOR, Vendor } from "@/lib/queries/GET_CURRENT_VENDOR";
+// import { useQuery } from "@apollo/client";
+import { useContext, useEffect, useState } from "react";
+import { useVendor } from "@/lib/context/VendorContext";
+import { FaEdit } from "react-icons/fa";
+import { menuItems } from "./menuObj/menu";
+import BackgroundComponent from "../background/BackgroundComponent";
 
 
 
 const Details = () => {
-    const {user} = useContext(AuthContext)
-    const {data} = useQuery<GetVendorData>(GET_VENDORS);
-    console.log(user)
-    console.log(data)
+    const {vendor, setCompleteProfile} = useVendor() as any;
+    const [showBackgroundComponent, setShowBackgroundComponent ] = useState(false);
+    const [activeMenu, setActiveMenu] = useState(menuItems[0].id)
 
-    const userDetails = data?.getAllVendor.find(vendor => (
-        vendor.email === user.email
-    ));
+    useEffect(() => {
+        if(vendor){
+            const { firstName, lastName, x, ig, description } = vendor;
+            if  (!firstName || !lastName || !x || !ig || !description ){
+                setCompleteProfile(true)
+            }
+        }
+    }, [vendor]);
 
-    console.log(userDetails);
-    const {email, business_phone, businessName, category, city, state} = userDetails as any;
 
-    
+//    useEffect(() => {
+//     const fetchUserData = async () => {
+//         if(session?.user?.businessName){
+//             const businessName = session?.user?.businessName;
+//             console.log("businessName", businessName)
+
+//             try {
+//                 const res = await fetch(`/api/user/${businessName}`)
+//                 if(!res.ok){
+//                     throw new Error('Failed to fetch user data');
+//                 }
+//                 const data = await res.json()
+//                 console.log(data)
+//                 setVendor(data)
+//             } catch (error) {
+//                 console.error('Error fetching user data:', error);
+//             }
+//         }
+//     }
+//     fetchUserData()
+//    }, [])
+   
+
+//     const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
+//     console.log( data?.currentVendor)
+
+//       // Extract vendor details from the query response
+//   const vendor = data?.currentVendor;
+
+ 
+
+  const {_id, email, firstName, lastName, phone, businessName, city, state, ig, x, description } = vendor as any;
+  console.log('email', _id)
+ 
+
+
+if (!vendor) {
+    return <p>No vendor details found.</p>;
+  } 
     return (
     <>
-    {/* <div className="flex flex-col gap-3">
-        <h3 className="font-extrabold ">Personal details</h3>
-        <div className="flex gap-8">
-            <div className="flex flex-col gap-5"> 
-                <div>
-                    <h4 className="text-gray-500">Vendor Name</h4>
-                    <p>Aderomke Balogun</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Phone number</h4>
-                    <p>0815 4168 554</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Utility bill</h4>
-                    <p>Doc Submitted</p>
-                </div>
-            </div>
-            <div className="flex flex-col gap-5">
-                <div>
-                    <h4 className="text-gray-500">Email Address</h4>
-                    <p>{email}</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Date Joined</h4>
-                    <p>6 months ago</p>
-                </div>
-                <div>
-                    <h4 className="text-gray-500">Valid ID</h4>
-                    <p>Doc Submitted</p>
-                </div>
-            </div>
-        </div>
-    </div> */}
-
-    
-
-    <div className="flex flex-col gap-3">
-        <div className="flex gap-5">
+    { showBackgroundComponent && <BackgroundComponent activeMenu={activeMenu} setShowBackgroundComponent={setShowBackgroundComponent}/> }
+    <div className=" flex flex-col gap-3">
+        <div className="flex justify-between">
+            <div className="flex gap-5">
             <div className='w-14 h-12 rounded-xl bg-red-600' />
             <div>
-                <h4 className="text-gray-500">Business Name</h4>
-                <p>{businessName}</p>
+                <h4 className="text-gray-500">Name</h4>
+                <p>{firstName || "Edit your name"}{lastName}</p>
             </div>
+            </div>
+            <FaEdit className="text-red-500 text-2xl md:hidden" onClick={() => setShowBackgroundComponent(true) } />
         </div>
         
         <div className="flex flex-col md:flex-row gap-6">
 
-            <div className="flex gap-5 justify-between">
+            <div className="flex flex-col gap-4">
+                <div>
+                    <h4 className="text-gray-500">Business Name</h4>
+                    <p>{businessName || ''}</p>
+                </div>
                 <div>
                     <h4 className="text-gray-500">Business phone</h4>
-                    <p>{business_phone}</p>
+                    <p>{phone || ""}</p>
                 </div>
                 <div>
                     <h4 className="text-gray-500">Business email</h4>
-                    <p>{email}</p>
+                    <p>{email || ""}</p>
                 </div>
-            </div>
-
-            <div className="flex justify-between">
+                <div className="flex justify-between">
                 <div>
                     <h4 className="text-gray-500">Physical address</h4>
-                    <p>{city}, {state}</p>
+                    <p>{city || ""}, {state || ""}</p>
                 </div>
             </div>
+            </div>
+
+            
 
             <div>
                 <h4 className="text-gray-500">Business description</h4>
-                <p className="leading-snug">Sales of party items and accessories for birthdays <br /> and official events. We setup the birthdays
-                <br /> and official events. We setup the location and <br />
-                resources foreverything about your party</p>
+                <p className="leading-snug">{description || ""}</p>
             </div>
 
             <div className="flex flex-col gap-5">
                 
                 <div>
-                    <h4 className="text-gray-500">Twitter</h4>
-                    <p>@Cassiechipsng</p>
+                    <h4 className="text-gray-500">X</h4>
+                    <p>{x || ""}</p>
                 </div>
                 <div>
                     <h4 className="text-gray-500">Instagram</h4>
-                    <p>@Cassie_chipsng</p>
+                    <p>{ig || ""}</p>
                 </div>
                 <div>
                     <h4 className="text-gray-500">Ng of reviews</h4>
@@ -112,6 +127,8 @@ const Details = () => {
         </div>
         
     </div>
+
+ 
 
     </>
     )

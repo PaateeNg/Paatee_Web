@@ -5,12 +5,15 @@ import NavBar from "@/components/NavBar/DesktopNavBar";
 import Footer from "@/components/Footer";
 import dynamic from 'next/dynamic'
 import { NavbarProvider } from "@/lib/context/NavbarContext";
-import { AuthProvider } from "@/lib/context/UserContext";
+import AuthProvider from "@/utilities/SessionProvider";
+import { getServerSession } from "next-auth";
+import { VendorProvider } from "@/lib/context/VendorContext";
+// import { AuthProvider } from "@/lib/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 //dynamic import to avoid SSR errors
-const ClientApolloProvider = dynamic(() => import ('@/lib/componentWrapper/ClientApolloProvider'))
+// const ClientApolloProvider = dynamic(() => import ('@/lib/componentWrapper/ClientApolloProvider'))
 
 export const metadata: Metadata = {
   title: "Paatee App",
@@ -22,24 +25,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const session = getServerSession();
   return (
     <html lang="en">
       <body className={`${inter.className} overflow-x-hidden`}>
       {/* called this component from a Apollo component i created beceuase this layout is a server component that cant be changed */}
-        <ClientApolloProvider>
+        {/* <ClientApolloProvider> */}
           {/* For the storing user is logged in */}
-          <AuthProvider>
+          <AuthProvider session={session}>
+            <VendorProvider>
 
-          {/* for the navbar to show at setting pages */}
+               {/* for the navbar to show at setting pages */}
           <NavbarProvider>
           <NavBar />
           {children}
-          <Footer />
+          {/* <Footer /> */}
           </NavbarProvider>
+
+            </VendorProvider>
+
+         
             
           </AuthProvider>
           
-        </ClientApolloProvider>
+        {/* </ClientApolloProvider> */}
         
         </body>
     </html>

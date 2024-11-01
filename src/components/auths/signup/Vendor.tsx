@@ -9,6 +9,7 @@ import { gql, useMutation, ApolloError } from '@apollo/client'
 const Vendor = () => {
   const route = useRouter();
   const [error, setError] = useState('');
+  const loading = false
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -17,39 +18,94 @@ const Vendor = () => {
   const categoryRef = useRef<HTMLSelectElement>(null);
   const stateRef = useRef<HTMLSelectElement>(null);
   const cityRef = useRef<HTMLSelectElement>(null);
+  const checkboxRef = useRef<HTMLInputElement>(null)
 
 
 
-    const [addUser, {loading}] = useMutation(REGISTER_VENDOR, {
-      onCompleted: () => {
-        route.push('/sign-in');  // Redirect to sign-in after successful registration
-      },
-      onError(err:ApolloError) {
-        const error = err?.graphQLErrors?.[0]?.extensions?.originalError as { message?: string } ;
-        if (error) {
-          console.log(error?.message);//red line as a result from type check BE
-          setError(error?.message || "")
+const email = emailRef.current?.value;
+const password= passwordRef.current?.value;
+const category= categoryRef?.current?.value;
+const  businessName=businessNameRef?.current?.value;
+const phone= phoneRef.current?.value;
+const state= stateRef.current?.value;
+const city= cityRef.current?.value;
+const terms = checkboxRef?.current?.checked
+const userType = 'vendor';
+
+    // const [addUser, {loading}] = useMutation(REGISTER_VENDOR, {
+    //   onCompleted: () => {
+    //     route.push('/sign-in');  // Redirect to sign-in after successful registration
+    //   },
+    //   onError(err:ApolloError) {
+    //     const error = err?.graphQLErrors?.[0]?.extensions?.originalError as { message?: string } ;
+    //     if (error) {
+    //       console.log(error?.message);//red line as a result from type check BE
+    //       setError(error?.message || "")
+    //     }
+    //   },
+    //   update(_, result){
+    //     console.log(result)
+    //   },
+    // })
+
+    const handleSignUp = async(e:any) => {
+      e.preventDefault();
+
+      if (!terms) {
+        setError('Please accept the terms and conditions')
+        return
+      }
+
+      console.log({email, terms, password, category, businessName, phone, state, city })
+      
+      try{
+        const res = await fetch('/api/user', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email, 
+            password,
+            userType,
+            category,
+            businessName,
+            phone,
+            state,
+            city,
+            terms
+          })
+        })
+
+        if(res.ok){
+          console.log('Success')
+          route.push('/sign-in');
         }
-      },
-      update(_, result){
-        console.log(result)
-      },
-    })
+        if(res.status === 400){
+          setError("Email is already in use")
+        }
+      } catch (err) {
+        console.error(err)
+      }
 
-    const handleSignUp = (e:any) => {
-        e.preventDefault();
-
-        addUser({
-          variables: {
-            email: emailRef.current?.value,
-            password: passwordRef.current?.value,
-            category: categoryRef?.current?.value,
-            businessName: businessNameRef?.current?.value,
-            business_phone: phoneRef.current?.value,
-            state: stateRef.current?.value,
-            city: cityRef.current?.value,
-          }
-      })
+      
+      
+      
+      
+      
+      
+      
+      //   addUser({
+      //     variables: {
+      //       email: emailRef.current?.value,
+      //       password: passwordRef.current?.value,
+      //       category: categoryRef?.current?.value,
+      //       businessName: businessNameRef?.current?.value,
+      //       business_phone: phoneRef.current?.value,
+      //       state: stateRef.current?.value,
+      //       city: cityRef.current?.value,
+      //     }
+      // })
     }
     
     const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +122,7 @@ const Vendor = () => {
     </div>
     <div className='input'>
       <label className='font-semibold'>Vendor Category</label>
-      <select ref={categoryRef} className='rounded-full outline-none border-2 border-gray-200 '>
+      <select ref={categoryRef} className='rounded-full outline-none border-2 border-gray-200 'defaultValue={''} >
         <option value="" disabled selected>SELECT CATEGORY</option>
         <option value="Drinks">Drinks</option>
         <option value="Cakes">Cakes</option>
@@ -86,11 +142,11 @@ const Vendor = () => {
     </div>
     <div className='input'>
       <label className='font-semibold'>Business Phone</label>
-      <input ref={phoneRef} className='rounded-full outline-none border-2 border-gray-200' type="text" placeholder='Oliva Business'/>
+      <input ref={phoneRef} className='rounded-full outline-none border-2 border-gray-200' type="number" placeholder='Oliva Business'/>
     </div>
     <div className='input'>
       <label className='font-semibold'>State</label>
-      <select ref={stateRef} className='rounded-full outline-none border-2 border-gray-200 '>
+      <select ref={stateRef} className='rounded-full outline-none border-2 border-gray-200 ' defaultValue={''}>
         <option value="" disabled selected>SELECT STATE</option>
         <option value="Lagos">Lagos</option>
         <option value="Enugu">Enugu</option>
@@ -98,14 +154,15 @@ const Vendor = () => {
     </div>
     <div className='input'>
       <label className='font-semibold'>City</label>
-      <select ref={cityRef} className='rounded-full outline-none border-2 border-gray-200 '>
+      <select ref={cityRef} className='rounded-full outline-none border-2 border-gray-200 ' defaultValue={''}>
         <option value="" disabled selected>SELECT CITY</option>
         <option value="Lagos">Lagos</option>
         <option value="Enugu">Enugu</option>
       </select>
     </div>
-    <div className='-mt-5'>
-    <input type="checkbox" className='mr-2' /><span className='border-b border-gray-400'>I agree with the terms and conditions</span>
+    <div className="-mt-5">
+      <input ref={checkboxRef} type="checkbox" className="mr-2" required />
+      <span className="border-b border-gray-400">I agree with the terms and conditions</span>
     </div>
     <p className='text-red-500 -mb-10 text-xl'>{error && error}</p>
     <AuthBtn text={`${loading ? 'please wait...' : 'register'}`}/>

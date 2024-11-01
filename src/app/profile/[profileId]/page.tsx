@@ -1,25 +1,34 @@
-"use client"
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth'
 import CustomerProfile from '@/components/profile/CustomerProfile'
 import PlannerProfile from '@/components/profile/PlannerProfile'
-import Vendorprofile from '@/components/profile/VendorProfile'
-import { useParams } from 'next/navigation'
+import VendorProfile from '@/components/profile/VendorProfile'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
+interface ProfileProps {
+  params: { profileId: string };
+}
 
-
-const Profile = () => {
-  const {profileId} = useParams()
-  console.log(profileId)
+const Profile = async ({ params }: ProfileProps) => {
+  // const session = await getServerSession(authOptions);
   
-  if(profileId  === 'customer'){
-    return <CustomerProfile/>
-  }else if (profileId === 'vendor'){
-    return <Vendorprofile/>
-  }else if(profileId === 'planner'){
-    return <PlannerProfile/>
-  }
-    
-      
+  // if (!session) {
+  //   redirect('/sign-in');
+  // }
 
+  // const user = session.user;
+  // console.log("user",user)
+  const { profileId } = params;
+
+  if (profileId === 'customer') {
+    return <CustomerProfile />;
+  } else if (profileId === 'vendor') {
+    return <VendorProfile />;
+  } else if (profileId === 'planner') {
+    return <PlannerProfile />;
   }
-  
-  export default Profile
+
+  return <p>Profile not found</p>;
+};
+
+export default Profile;

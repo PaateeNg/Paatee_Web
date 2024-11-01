@@ -3,19 +3,25 @@
 import { menuItems } from './(menu)/menuObj/menu'
 import Button from '@/components/vendorProfileMenu/button/Button'
 import { useState } from 'react'
+import BackgroundComponent from '@/components/vendorProfileMenu/background/BackgroundComponent'
 
 
 
 
-const VendorProfileMenu = ({setShowBackgroundComponent}) => {
+
+const VendorProfileMenu = () => {
     const [activeMenu, setActiveMenu] = useState(menuItems[0].id)
+    const [showBackgroundComponent, setShowBackgroundComponent ] = useState(false);
 
     const renderedComponent = () => {
         const activeItem = menuItems.find(item => item.id === activeMenu);
         return activeItem ? activeItem.content : null;
     }
 
-    return <div className='flex flex-col border border-gray-200 sshadow-lg rounded-xl'>
+    return(
+        <div className='flex flex-col border border-gray-200 shadow-lg rounded-xl'>
+        { showBackgroundComponent && <BackgroundComponent activeMenu={activeMenu} setShowBackgroundComponent={setShowBackgroundComponent}/> }
+       
         {/* Menu */}
         <div className='flex justify-between'>
             <div className='flex border'>
@@ -37,6 +43,7 @@ const VendorProfileMenu = ({setShowBackgroundComponent}) => {
             </div>  
         </div>
     </div>
+    )
 }
 
 export default VendorProfileMenu;

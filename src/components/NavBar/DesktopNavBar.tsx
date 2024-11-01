@@ -9,21 +9,39 @@ import { RiSearch2Line } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoCartOutline } from "react-icons/io5";
 import { middleMenu } from "./NavBarMenu/NavMenu";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
 import { NavbarContext } from "@/lib/context/NavbarContext";
 import { usePathname } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { AuthContext } from "@/lib/context/UserContext";
 import Logo from '../logo/Logo';
+import { GET_CURRENT_VENDOR, Vendor } from '@/lib/queries/GET_CURRENT_VENDOR';
+import { useQuery } from '@apollo/client';
+import { signOut, useSession } from 'next-auth/react';
 
 
 export default function NavBar() {
-  const { user } = useContext(AuthContext);
   const [click, setClick] = useState<number | null>(null);
   const [dropDown, setDropDown] = useState(false);
   const context = useContext(NavbarContext);
   const pathName = usePathname();
+  const [user, setUser] = useState() as any
+
+  // const {data} = useQuery<Vendor>(GET_CURRENT_VENDOR);
+  // const user = data?.currentVendor as any;
+
+ 
+  const { data: session } = useSession();
+
+  console.log('session', session?.user.userType)
+  // Set user state once on session change
+  useEffect(() => {
+    if (session?.user) {
+      setUser(session.user);
+    } else {
+      setUser(null);
+    }
+  }, [session]);
 
   const [open, setOpen] = useState(false);
 
@@ -83,7 +101,7 @@ export default function NavBar() {
           {/* Icons with Navs and Button for Get Started */}
           {user ? (
             <div className="hidden md:flex md:items-center md:justify-end text-2xl gap-5">
-              <Link href={`/profile/${user.userType}`}>
+              <Link href={`/profile/${user?.userType}`}>
                 <FaRegUser />
               </Link>
               <RiSearch2Line />
@@ -97,8 +115,8 @@ export default function NavBar() {
           )}
 
             <div>
-            <GiHamburgerMenu onClick={() => setOpen(!open)} className=" relative  z-10 text-4xl md:hidden  text-red-500"  />
-              <div className={`md:hidden absolute top-0 right-0 flex flex-col justify-center gap-8 items-center text-white bg-black w-[200px] h-[80vh] transition-all duration-500 ease-in-out ${open ? 'right-0' : 'right-[-200px]'} `}>
+            <GiHamburgerMenu onClick={() => setOpen(!open)} className=" relative  z-20 text-4xl md:hidden  text-red-500"  />
+              <div className={`md:hidden fixed z-10 top-0 right-0 flex flex-col justify-center gap-8 items-center text-white bg-black w-[200px] h-[80vh] transition-all duration-500 ease-in-out ${open ? 'translate-x-0' : 'translate-x-full'} `}>
               {middleMenu.map((menu) => (
                  
                 <Link
@@ -121,6 +139,7 @@ export default function NavBar() {
                 </Link>
               ))}
                              {user ? (
+           <>
             <div className="flex md:flex md:items-center md:justify-end text-2xl gap-5">
               <Link href={`/profile/${user.userType}`}>
                 <FaRegUser />
@@ -129,6 +148,12 @@ export default function NavBar() {
               <FaRegHeart />
               <IoCartOutline />
             </div>
+              <button
+              onClick={() => signOut()}
+              >SignOut</button>
+          
+           </>
+            
           ) : (
             <Link className=" w-[70%] md:block" href="/sign-up">
               <PrimaryBtn center={true} text="Join us" />
