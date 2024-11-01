@@ -13,14 +13,14 @@ export default function Home() {
   return (
     <>
     <HomeBanner/>
-    {/* <div className="2xl:flex 2xl:flex-col 2xl:items-center bg-[#f9f9f9]">
+    <div className="2xl:flex 2xl:flex-col 2xl:items-center bg-[#f9f9f9]">
       <MiniBoxes/>
       <CategoryCards/>
-      <TopPlanners/>
+      {/* <TopPlanners/> */}
       <TopVendors/>
-      <Testimonials/>
-      <Offer/>
-    </div> */}
+      {/* <Testimonials/>
+      <Offer/> */}
+    </div>
     </>
   )
 }

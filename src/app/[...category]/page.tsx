@@ -2,7 +2,7 @@
 
 import SearchBar from "@/components/SearchBar/SearchBar";
 import VPBanner from "@/components/VPBanner/VPBanner";
-import VendorList from "@/components/vendorList/VendorList";
+import VendorList from "@/components/Home/vendorList/VendorList";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cards } from "@/components/Home/CategoryCards";

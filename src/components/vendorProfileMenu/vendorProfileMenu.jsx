@@ -28,7 +28,7 @@ const VendorProfileMenu = () => {
                 {menuItems.map(menu => (
                     <div key={menu.id}
                     onClick={() => setActiveMenu(menu.id)}
-                    className={`cursor-pointer py-2 px-5 focus:outline-none ${activeMenu === menu.id ? 'border-b-2 border-blue-500 text-blue-500' : ''}`}
+                    className={`cursor-pointer py-2 px-3 focus:outline-none ${activeMenu === menu.id ? 'border-b-2 border-blue-500 text-blue-500' : ''}`}
                     >
                     {menu.label}
                     </div>
